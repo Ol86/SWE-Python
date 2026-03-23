@@ -1,7 +1,22 @@
 [project]
-name = "swe-python"
+name = "project"
 version = "0.1.0"
 description = "This is a Python package for the SWE API."
 readme = "README.md"
+authors = [
+    { name = "Ole Menke", email = "meol1013@h-ka.de" },
+    { name = "Paul Braeuninger", email = "brpa1033@h-ka.de" },
+]
 requires-python = ">=3.14"
-dependencies = []
+dependencies = [
+    "fastapi[standard]>=0.135.1",
+    "loguru>=0.7.3",
+    "uvicorn>=0.42.0",
+]
+
+[project.scripts]
+project = "project:main"
+
+[build-system]
+requires = ["uv_build==0.10.11"]
+build-backend = "uv_build"

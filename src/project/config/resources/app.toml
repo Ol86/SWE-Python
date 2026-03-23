@@ -1,0 +1,47 @@
+[server]
+# host-binding = "0.0.0.0"
+# port = 8000
+
+[tls]
+# key = "key.pem"
+# certificate = "certificate.crt"
+
+[db]
+# dialect = "postgresql"
+# username = "patient"
+# name = "patient"
+password = "p"
+password-admin = "p"
+host = "localhost"
+# locust: auskommentieren
+log-statements = true
+
+[mail]
+# enabled = false
+host = "localhost"
+# host = "mail"
+port = 1025
+# timeout = 1.0
+
+[excel]
+enabled = true
+
+[keycloak]
+# schema = "https"
+host = "localhost"
+# host = "keycloak"
+port = 8843
+# realm = "python"
+# client-id = "python-client"
+client-secret = "<client-secret>"
+# admin = "admin"
+admin-password = "p"
+csv = "extras/compose/postgres/init/patient/csv/patient.csv"
+
+[graphql]
+# locust: auskommentieren
+graphiql-enabled = true
+
+[dev]
+db-populate = true
+keycloak-populate = true
