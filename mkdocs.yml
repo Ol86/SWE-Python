@@ -1,0 +1,60 @@
+site_name: project
+
+nav:
+  - Home: index.md
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.path
+    - navigation.top
+    - toc.follow
+  palette:
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to system preference
+  language: en
+
+markdown_extensions:
+  - toc:
+      permalink: true
+
+watch: [docs, mkdocs.yml, src/project]
+strict: true
+
+plugins:
+  - search
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          src: src/project
+          options:
+            docstring_style: sphinx
+            show_source: false
+            show_docstring_modules: true
+            show_docstring_classes: true
+            show_docstring_functions: true
+
+  - build_plantuml:
+      render: "server"
+      server: "http://www.plantuml.com/plantuml"
+      disable_ssl_certificate_validation: true
+      output_format: "svg"
+      diagram_root: "docs/diagrams"
+      output_folder: "out"
+      input_folder: "src"
+      input_extensions: "plantuml"

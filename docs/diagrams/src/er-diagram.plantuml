@@ -1,0 +1,16 @@
+'TODO: Add the real ER diagram here. This is just a placeholder.
+@startuml ER Diagram
+
+hide circle
+
+skinparam linetype ortho
+
+entity "User" as User {
+    *id: int
+    *name: str
+    *email: str
+}
+
+footer Ole Menke | Paul Bräuninger
+
+@enduml
