@@ -13,8 +13,34 @@ maintainers= [
 ]
 requires-python = ">=3.14"
 dependencies = [
+    "anyio>=4.12.1",
+    "cffi>=2.0.0",
+    "cryptography>=46.0.5",
+    "email-validator>=2.3.0",
     "fastapi[standard]>=0.135.1",
+    "httpx[http2]>=0.28.1",
+    "jwcrypto>=1.5.6",
     "loguru>=0.7.3",
+    "openpyxl>=3.1.5",
+    "orjson>=3.11.7",
+    "prometheus-client>=0.24.1",
+    "prometheus-fastapi-instrumentator>=7.1.0",
+    "psycopg-binary>=3.3.3",
+    "psycopg-pool>=3.3.0",
+    "psycopg[binary,pool]>=3.3.3",
+    "pydantic-core>=2.41.5",
+    "pydantic[email]>=2.12.5",
+    "pyfiglet>=1.0.4",
+    "python-dotenv>=1.2.2",
+    "python-keycloak>=7.1.1",
+    "python-multipart>=0.0.22",
+    "pyyaml>=6.0.3",
+    "requests>=2.32.5",
+    "sqlalchemy>=2.0.48",
+    "starlette>=0.52.1",
+    "strawberry-graphql>=0.312.0",
+    "tabulate>=0.10.0",
+    "urllib3>=2.6.3",
     "uvicorn>=0.42.0",
 ]
 
@@ -49,6 +75,24 @@ doc = [
     "mkdocstrings[python]>=1.0.3",
     "mkdocstrings-python>=2.0.3",
 ]
+lint = [
+    "pip-audit>=2.10.0",
+    "pysentry-rs>=0.4.3",
+    "ruff>=0.15.7",
+    "ty>=0.0.24",
+    "types-openpyxl>=3.1.5.20260322",
+    "types-tabulate>=0.10.0.20260308",
+]
+
+[tool.coverage.run]
+include = ["src/project/service/*"]
+
+[tool.ruff]
+prevew = true
+
+[tool.ty.environment]
+python = "./.venv"
+root = ["./src", "./tests/integration", "./tests/unit"]
 
 [tool.uv]
 default-groups = "all"

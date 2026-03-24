@@ -2,6 +2,9 @@ site_name: project
 
 nav:
   - Home: index.md
+  - ER-Diagram: er-diagram.md
+  - Modules:
+      - __init__.py: modules/__init__.md
 
 theme:
   name: material
