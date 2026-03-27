@@ -1,5 +1,5 @@
 [project]
-name = "project"
+name = "library"
 version = "0.1.0"
 description = "This is a Python package for the SWE API."
 readme = "README.md"
@@ -45,7 +45,7 @@ dependencies = [
 ]
 
 [project.scripts]
-project = "project:main"
+library = "library:main"
 
 [build-system]
 requires = ["uv_build==0.11.0"]
@@ -85,7 +85,7 @@ lint = [
 ]
 
 [tool.coverage.run]
-include = ["src/project/service/*"]
+include = ["src/library/service/*"]
 
 [tool.ty.environment]
 python = "./.venv"
