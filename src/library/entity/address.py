@@ -3,7 +3,7 @@
 from sqlalchemy import ForeignKey, Identity
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from project.entity.base import Base
+from library.entity.base import Base
 
 class Address(Base):
     """Entity class for an address"""
