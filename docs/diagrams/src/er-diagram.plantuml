@@ -5,64 +5,43 @@ hide circle
 skinparam linetype ortho
 
 ' Entities
-entity "User" as User {
-    *id: int
-    *username: varchar
-    *email: varchar
-    *created_at: datetime
+entity "Student" as Student {
+    *id: integer <<generated>>
+    --
+    *first_name: text
+    *last_name: text
+    *date_of_birth: date
+    *email: text <<unique>>
+    *created_at: timestamp
+    *updated_at: timestamp
 }
 
-entity "Profile" as Profile {
-    *id: int
-    *user_id: int
-    *bio: text
-    *avatar_url: varchar
+entity "Address" as Address {
+    *id: integer <<generated>>
+    --
+    *street: text
+    *city: text
+    *zip_code: text
 }
 
-entity "Category" as Category {
-    *id: int
-    *name: varchar
+entity "Book" as Book {
+    *id: integer <<generated>>
+    --
+    *name: text
     *description: text
+    *type: BookType
+    *genre: JSON
+    *published_at: date
+    *author: text
+    *isbn: text <<unique>>
+    *rented: boolean
+    * **student_id**: integer <<FK>>
 }
 
-entity "Product" as Product {
-    *id: int
-    *sku: varchar
-    *name: varchar
-    *price: decimal
-    *category_id: int
-}
+' Relationships
+Student ||--|| Address : "has"
+Student ||--o{ Book : "rents"
 
-entity "Order" as Order {
-    *id: int
-    *order_date: datetime
-    *total: decimal
-    *user_id: int
-}
-
-entity "OrderItem" as OrderItem {
-    *id: int
-    *order_id: int
-    *product_id: int
-    *quantity: int
-    *unit_price: decimal
-}
-
-' Relationships (only 1:1 and 1:N)
-' 1:1 - each User has one Profile, each Profile belongs to exactly one User
-User ||--|| Profile : "has (1:1)"
-
-' 1:N - one User can place many Orders
-User ||--o{ Order : "places (1:N)"
-
-' 1:N - one Category has many Products
-Category ||--o{ Product : "contains (1:N)"
-
-' 1:N - one Order has many OrderItems
-Order ||--o{ OrderItem : "contains (1:N)"
-
-' 1:N - one Product can appear in many OrderItems
-Product ||--o{ OrderItem : "is listed in (1:N)"
 
 footer Ole Menke | Paul Bräuninger
 
