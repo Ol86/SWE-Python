@@ -1,7 +1,4 @@
-"""
-The REST API router for member write operations,
-such as creating a new member, updating member information, and deleting a member.
-"""
+"""The REST API router for member write operations."""
 
 from typing import Final
 

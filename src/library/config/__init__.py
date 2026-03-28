@@ -1,5 +1,5 @@
-"""
-This module provides configuration settings for the server and TLS.
+"""The package provides configuration settings for the server and TLS.
+
 It imports the necessary configuration values from the respective modules and makes them available for use in the application.
 The configuration values include host binding, port, TLS certificate file, and TLS key file.
 """

@@ -1,3 +1,5 @@
+"""The Gender enum."""
+
 from enum import StrEnum
 
 

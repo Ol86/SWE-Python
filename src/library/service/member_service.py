@@ -1,6 +1,4 @@
-"""
-The bussiness logic for member read operations, such as retrieving member information, listing members, and searching for members.
-"""
+"""The bussiness logic for member read operations."""
 
 __all__ = [
     "MemberService",
@@ -8,6 +6,4 @@ __all__ = [
 
 
 class MemberService:
-    """
-    The service class for member read operations.
-    """
+    """The service class for member read operations."""

@@ -84,6 +84,53 @@ lint = [
     "types-tabulate>=0.10.0.20260308",
 ]
 
+[tool.ruff]
+line-length = 132
+
+[tool.ruff.lint]
+select = [
+    "FAST",
+    "B",
+    "ASYNC",
+    "S",
+    "BLE",
+    "FBT",
+    "A",
+    "COM",
+    "C4",
+    "ISC001",
+    "PIE",
+    "RSE",
+    "RET",
+    "SLF",
+    "SIM",
+    "TID",
+    "TC",
+    "ARG",
+    "PTH",
+    "I",
+    "N",
+    "PERF",
+    "E",
+    "W",
+    "D",
+    "F",
+    "PL",
+    "UP",
+    "FURB",
+    "RUF",
+]
+ignore = [
+    "D203",
+    "D213",
+    "RUF012",
+    "COM812",
+    "PLR6301",
+    "TC001",
+    "TC002",
+    "TC003",
+]
+
 [tool.coverage.run]
 include = ["src/library/service/*"]
 

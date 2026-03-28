@@ -1,6 +1,4 @@
-"""
-This module provides the REST API routes for the project.
-"""
+"""The package provides the REST API routes for the project."""
 
 from collections.abc import Sequence
 

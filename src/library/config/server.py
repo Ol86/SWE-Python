@@ -1,5 +1,5 @@
-"""
-This module contains configuration values for the server, e.g. host binding and port.
+"""The module contains configuration values for the server, e.g. host binding and port.
+
 The values are read from the `app_config` dictionary, which is defined in the `config`
 module and populated from the `config.toml` file.
 """

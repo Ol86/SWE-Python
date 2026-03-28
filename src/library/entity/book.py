@@ -1,4 +1,4 @@
-"""Entity class for a book borrowed by a library member"""
+"""Entity class for a book borrowed by a library member."""
 
 from sqlalchemy import ForeignKey, Identity
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -9,7 +9,7 @@ from library.entity.member import Member
 
 
 class Book(Base):
-    """Entity class for borrowed books"""
+    """Entity class for borrowed books."""
 
     __tablename__ = "book"
 
@@ -38,7 +38,7 @@ class Book(Base):
     """Transient Member object"""
 
     def __repr__(self) -> str:
-        """Book data as a string without member data"""
+        """Book data as a string without member data."""
         return (
             f"Book(id={self.id}, "
             + f"name={self.name}, "

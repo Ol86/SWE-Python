@@ -1,4 +1,4 @@
-"""Entity class for an address"""
+"""Entity class for an address."""
 
 from sqlalchemy import ForeignKey, Identity
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -8,7 +8,7 @@ from library.entity.member import Member
 
 
 class Address(Base):
-    """Entity class for an address"""
+    """Entity class for an address."""
 
     __tablename__ = "address"
 
@@ -28,7 +28,5 @@ class Address(Base):
     """Transient Member object"""
 
     def __repr__(self) -> str:
-        """Address data without member data"""
-        return (
-            f"Address(id={self.id}, postal_code={self.postal_code}, place={self.place})"
-        )
+        """Address data without member data."""
+        return f"Address(id={self.id}, postal_code={self.postal_code}, place={self.place})"

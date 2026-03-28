@@ -1,11 +1,11 @@
-"""Enum for book genres"""
+"""The Enum for book genres."""
 
 from enum import StrEnum
 
 
 # TODO Strawberry
 class Genre(StrEnum):
-    """Selection of possible genres (incomplete)"""
+    """Selection of possible genres (incomplete)."""
 
     FANTASY = "F"
     """For Fantasy Books"""

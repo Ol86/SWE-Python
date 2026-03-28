@@ -1,7 +1,4 @@
-"""
-The bussiness logic for member write operations,
-such as creating a new member, updating member information, and deleting a member.
-"""
+"""The bussiness logic for member write operations."""
 
 __all__ = [
     "MemberWriteService",
@@ -9,6 +6,4 @@ __all__ = [
 
 
 class MemberWriteService:
-    """
-    The service class for member create, update, and delete operations.
-    """
+    """The service class for member create, update, and delete operations."""

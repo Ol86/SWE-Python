@@ -1,6 +1,4 @@
-"""
-This module contains configuration values for the development mode, e.g. whether to use mock data or not.
-"""
+"""The module contains configuration values for the development mode, e.g. whether to use mock data or not."""
 
 from typing import Final
 

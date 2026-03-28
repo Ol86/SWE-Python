@@ -1,7 +1,4 @@
-"""
-The REST API router for member read operations,
-such as retrieving member information, listing members, and searching for members.
-"""
+"""The REST API router for member read operations."""
 
 from typing import Final
 

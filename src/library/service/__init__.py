@@ -1,6 +1,4 @@
-"""
-This module provides the general business logic for the project.
-"""
+"""The package provides the general business logic for the project."""
 
 from library.service.member_service import MemberService
 from library.service.member_write_service import MemberWriteService

@@ -1,6 +1,4 @@
-"""
-This module handles the database repository for the project.
-"""
+"""The package handles the database repository for the project."""
 
 from library.repository.pageable import MAX_PAGE_SIZE, Pageable
 
