@@ -11,8 +11,8 @@ entity "Member" as Member {
     * version: integer
       last_name: text
       first_name: text
-      ** address **: Address
-    * ** gender **: Gender
+      **address**: Address
+    * **gender**: Gender
       date_of_birth: date
       email_address: text
     * interests: list[Genre]
@@ -29,7 +29,7 @@ entity "Address" as Address {
     --
       place: text
       postal_code: text
-    * ** member_id **: integer <<FK>>
+    * **member_id**: integer <<FK>>
 }
 
 entity "Book" as Book {
@@ -44,8 +44,8 @@ entity "Book" as Book {
 }
 
 ' Relationships
-Student ||--|| Address : "has"
-Student ||--o{ Book : "rents"
+Member ||--|| Address : "has"
+Member ||--o{ Book : "rents"
 
 
 footer Ole Menke | Paul Bräuninger
