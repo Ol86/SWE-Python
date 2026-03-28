@@ -89,7 +89,8 @@ include = ["src/library/service/*"]
 
 [tool.ty.environment]
 python = "./.venv"
-root = ["./src", "./tests/integration", "./tests/unit"]
+root = ["./src", "./tests/integration"]
+# FIXME: Add "./tests/unit" back, when the unit tests are written.
 
 [tool.uv]
 default-groups = "all"
