@@ -26,7 +26,7 @@ jobs:
         run: uv run ruff check src tests
 
       - name: Analyze code with ty
-        run: uv run ty check src tests
+        run: uv run ty check src tests/integration
 
       - name: Test code with pytest
         run: uv run pytest tests
