@@ -5,37 +5,42 @@ hide circle
 skinparam linetype ortho
 
 ' Entities
-entity "Student" as Student {
-    *id: integer <<generated>>
+entity "Member" as Member {
+    * id: integer <<generated>>
     --
-    *first_name: text
-    *last_name: text
-    *date_of_birth: date
-    *email: text <<unique>>
-    *created_at: timestamp
-    *updated_at: timestamp
+    * version: integer
+      last_name: text
+      first_name: text
+      ** address **: Address
+    * ** gender **: Gender
+      date_of_birth: date
+      email_address: text
+    * interests: list[Genre]
+    * interests_json: list[text]
+      books: list[Book]
+    * is_student: bool
+    * member_since: date
+    * generated: timestamp
+    * updated: timestamp
 }
 
 entity "Address" as Address {
-    *id: integer <<generated>>
+    * id: integer <<generated>>
     --
-    *street: text
-    *city: text
-    *zip_code: text
+      place: text
+      postal_code: text
+    * ** member_id **: integer <<FK>>
 }
 
 entity "Book" as Book {
-    *id: integer <<generated>>
+    * id: integer <<generated>>
     --
-    *name: text
-    *description: text
-    *type: BookType
-    *genre: JSON
-    *published_at: date
-    *author: text
-    *isbn: text <<unique>>
-    *rented: boolean
-    * **student_id**: integer <<FK>>
+    name: text
+    * genre: Genre
+    * author: text
+    * isbn: text <<unique>>
+    * still_borrowed: boolean
+    * **member_id**: integer <<FK>>
 }
 
 ' Relationships
