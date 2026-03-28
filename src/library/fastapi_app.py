@@ -7,7 +7,15 @@ from typing import Final
 
 from fastapi import FastAPI
 
+from library.router import member_router, member_write_router
+
 app: Final = FastAPI()
+
+# ----------------------------------------------------------------------------------------------------------------------------------
+# REST
+# ----------------------------------------------------------------------------------------------------------------------------------
+app.include_router(member_router, prefix="/rest")
+app.include_router(member_write_router, prefix="/rest")
 
 
 @app.get("/hello")
