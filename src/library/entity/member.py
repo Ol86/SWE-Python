@@ -14,17 +14,15 @@ from library.entity.book import Book
 from library.entity.gender import Gender
 from library.entity.genre import Genre
 
-#TODO Strawberry
+
+# TODO Strawberry
 class Member(Base):
     """Entity class for a library member"""
 
     __tablename__ = "member"
     """Tablename for sqlalchemy"""
 
-    id: Mapped[int | None] = mapped_column(
-        Identity(start=1000),
-        primary_key=True
-    )
+    id: Mapped[int | None] = mapped_column(Identity(start=1000), primary_key=True)
     """ID starting at 1000 for testing purposes"""
 
     last_name: Mapped[str]
@@ -53,9 +51,7 @@ class Member(Base):
     """Tansient list of genre interests of the member"""
 
     interests_json: Mapped[list[str] | None] = mapped_column(
-        JSON,
-        name="genres",
-        init=False
+        JSON, name="genres", init=False
     )
     """Persistent list of genres for a JSON array"""
 
@@ -75,34 +71,30 @@ class Member(Base):
     """Version number for prevention of lost updates"""
 
     generated: Mapped[datetime | None] = mapped_column(
-        insert_default=func.now(),
-        default=None
+        insert_default=func.now(), default=None
     )
     """Timestamp of initial INSERT into the database"""
 
     updated: Mapped[datetime | None] = mapped_column(
-        insert_default=func.now(),
-        onupdate=func.now(),
-        default=None
+        insert_default=func.now(), onupdate=func.now(), default=None
     )
     """Timestamp of the last UPDATE in the database"""
 
-
-    def __post_init__(self, genres: list[Genre] | None,) -> None:
+    def __post_init__(
+        self,
+        genres: list[Genre] | None,
+    ) -> None:
         """Sets JSON array for database INSERT or UPDATE
-        
+
         :param genres: List with genres as enum
         """
         logger.debug("genres={}", genres)
         logger.debug("self={}", self)
-        
+
         self.interests_json = (
-            [genre_enum.name for genre_enum in genres]
-            if genres is not None
-            else None
+            [genre_enum.name for genre_enum in genres] if genres is not None else None
         )
         logger.debug("self.genres_json={}", self.interests_json)
-
 
     @reconstructor
     def on_load(self) -> None:
@@ -113,12 +105,14 @@ class Member(Base):
             if self.interests_json is not None
             else []
         )
-        logger.debug("interests={}", self.interests,)
-
+        logger.debug(
+            "interests={}",
+            self.interests,
+        )
 
     def set(self, member: Self) -> None:
         """Overwrite primitive attributes
-        
+
         :param member: Member object
         """
 
@@ -127,10 +121,9 @@ class Member(Base):
         self.date_of_birth = member.date_of_birth
         self.email = member.email
 
-    
     def __eq__(self, other: Any) -> bool:
         """Compares two Members without using joins.
-        
+
         :param other: Object for comparison
         """
 
@@ -140,12 +133,10 @@ class Member(Base):
             return False
 
         return self.id is not None and self.id == other.id
-    
 
     def __hash__(self) -> int:
         """Returns Hash using ID without joins."""
         return hash(self.id) if self.id is not None else hash(type(self))
-
 
     def __repr__(self) -> str:
         """Member data as a string without using joins"""
@@ -164,15 +155,3 @@ class Member(Base):
             + f"updated={self.updated}"
             + ")"
         )
-
-
-
-
-
-
-
-
-
-
-
-    

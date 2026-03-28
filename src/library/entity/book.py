@@ -7,6 +7,7 @@ from library.entity.base import Base
 from library.entity.genre import Genre
 from library.entity.member import Member
 
+
 class Book(Base):
     """Entity class for borrowed books"""
 
@@ -33,11 +34,8 @@ class Book(Base):
     member_id: Mapped[int] = mapped_column(ForeignKey("member.id"))
     """ID of member that has borrowed this book as a foreign key"""
 
-    member: Mapped[Member] = relationship(
-        back_populates="books"
-    )
+    member: Mapped[Member] = relationship(back_populates="books")
     """Transient Member object"""
-
 
     def __repr__(self) -> str:
         """Book data as a string without member data"""
@@ -48,4 +46,3 @@ class Book(Base):
             + f"is_returned={self.still_borrowed}"
             + f"genre={self.genre})"
         )
-

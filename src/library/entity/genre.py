@@ -2,7 +2,8 @@
 
 from enum import StrEnum
 
-#TODO Strawberry
+
+# TODO Strawberry
 class Genre(StrEnum):
     """Selection of possible genres (incomplete)"""
 
