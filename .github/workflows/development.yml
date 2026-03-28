@@ -27,6 +27,7 @@ jobs:
 
       - name: Analyze code with ty
         run: uv run ty check src tests/integration
+      #FIXME: Change for tests only, when test cases for unit tests are added
 
       - name: Test code with pytest
         run: uv run pytest tests
