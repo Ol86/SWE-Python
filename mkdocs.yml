@@ -4,7 +4,8 @@ nav:
   - Home: index.md
   - ER-Diagram: er-diagram.md
   - Modules:
-      - __init__.py: modules/__init__.md
+      - __init__: modules/__init__.md
+      - Entities: modules/entity.md
 
 theme:
   name: material
@@ -35,7 +36,7 @@ markdown_extensions:
   - toc:
       permalink: true
 
-watch: [docs, mkdocs.yml, src/project]
+watch: [docs, mkdocs.yml, src/library]
 strict: true
 
 plugins:
@@ -44,7 +45,7 @@ plugins:
       default_handler: python
       handlers:
         python:
-          src: src/project
+          src: src/library
           options:
             docstring_style: sphinx
             show_source: false
