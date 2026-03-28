@@ -1,0 +1,32 @@
+name: Development Workflow
+
+on:
+  push:
+    branches: [development]
+  pull_request:
+    branches: [development]
+
+jobs:
+  analyze:
+    name: Analyze Code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          version: ${{ vars.UV_VERSION }}
+
+      - name: Install dependencies
+        run: uv sync --all-groups
+
+      - name: Analyze code with ruff
+        run: uv run ruff check src tests
+
+      - name: Analyze code with ty
+        run: uv run ty check src tests
+
+      - name: Test code with pytest
+        run: uv run pytest tests
