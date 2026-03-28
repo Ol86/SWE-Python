@@ -84,6 +84,32 @@ lint = [
     "types-tabulate>=0.10.0.20260308",
 ]
 
+[tool.pytest.ini_options]
+minversion = "8.4.1"
+pythonpath = ["src"]
+testpaths = ["tests/integration"]
+addopts = "--html=report.html --cov --cov-report=html"
+markers = [
+    "rest: REST-Schnittstelle",
+    "get_request: GET-Requests",
+    "post_request: POST-Requests",
+    "put_request: PUT-Requests",
+    "delete_request: DELETE-Requests",
+    "login: Login mit der REST-Schnittstelle",
+    "health: Health des Servers ueberpruefen",
+    "graphql: GraphQL-Schnittstelle",
+    "query: Queries bei GraphQL",
+    "mutation: Mutations bei GraphQL",
+    "simple: Einfache Tests mit True und False",
+    "unit",
+    "unit_find_by_id",
+    "unit_find",
+    "unit_create",
+]
+
+[tool.pytest_env]
+# LOGURU_LEVEL = "INFO"
+
 [tool.ruff]
 line-length = 132
 
@@ -130,6 +156,12 @@ ignore = [
     "TC002",
     "TC003",
 ]
+
+[tool.ruff.lint.isort]
+case-sensitive = true
+
+[tool.ruff.lint.extend-per-file-ignores]
+"tests/**/*.py" = ["S101"]
 
 [tool.coverage.run]
 include = ["src/library/service/*"]
