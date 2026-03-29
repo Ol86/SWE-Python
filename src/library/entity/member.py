@@ -59,7 +59,7 @@ class Member(Base):
     )
     """Member's address (1:1 relationship)"""
 
-    books: Mapped[Book] = relationship(
+    books: Mapped[list[Book]] = relationship(
         back_populates="member",
         cascade="save-update, delete",
     )
