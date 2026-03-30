@@ -5,14 +5,13 @@ from dataclasses import dataclass
 from library.entity import Address
 
 
-@dataclass(eq=False, slots = True, kw_only=True)
-#TODO Strawberry
+@dataclass(eq=False, slots=True, kw_only=True)
+# TODO Strawberry
 class AddressDTO:
     """DTO class for address information."""
 
     postal_code: str
     place: str
-
 
     def __init__(self, address: Address):
         """Initialize AddressDTO by using Address object.

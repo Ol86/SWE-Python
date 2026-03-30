@@ -10,8 +10,9 @@ from library.service.address_dto import AddressDTO
 
 __all__ = ["MemberDTO"]
 
+
 @dataclass(eq=False, slots=True, kw_only=True)
-#TODO Strawberry
+# TODO Strawberry
 class MemberDTO:
     """DTO class for read or saved member data."""
 
@@ -26,7 +27,6 @@ class MemberDTO:
     email_address: str
     interests: list[Genre]
     address: AddressDTO
-
 
     def __init__(self, member: Member):
         """Initialize MemberDTO using Member object.
@@ -43,12 +43,5 @@ class MemberDTO:
         self.member_since = member.member_since
         self.is_student = member.is_student
         self.email_address = member.email_address
-        self.interests = (
-            [Genre[genre] for genre in member.interests_json]
-            if member.interests_json is not None
-            else []
-            )
+        self.interests = [Genre[genre] for genre in member.interests_json] if member.interests_json is not None else []
         self.address = AddressDTO(member.address)
-
-
-
