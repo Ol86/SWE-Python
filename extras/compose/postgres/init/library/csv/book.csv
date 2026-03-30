@@ -1,0 +1,2 @@
+id;name;isbn;author;still_borrowed;genre;member_id
+1;Book;1234567890;Author;false;FANTASY;1
