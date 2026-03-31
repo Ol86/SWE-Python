@@ -17,6 +17,7 @@ class MemberDTO:
     """DTO class for read or saved member data."""
 
     id: int
+    username: str
     version: int
     first_name: str
     last_name: str
@@ -35,6 +36,7 @@ class MemberDTO:
         """
         member_id: int | None = member.id
         self.id = member_id if member_id is not None else -1
+        self.username = member.username
         self.version = member.version
         self.first_name = member.first_name
         self.last_name = member.last_name
