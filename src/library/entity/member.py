@@ -25,6 +25,9 @@ class Member(Base):
     id: Mapped[int | None] = mapped_column(Identity(start=1000), primary_key=True)
     """ID starting at 1000 for testing purposes"""
 
+    username: Mapped[str] = mapped_column(unique=True)
+    """Username of the member"""
+
     last_name: Mapped[str]
     """Family name of member"""
 
