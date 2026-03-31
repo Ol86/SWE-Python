@@ -1,0 +1,17 @@
+"""Constants for models etc."""
+
+LAST_NAME_PATTERN = r"^(?:(?:[vV]on|[vV]an|[zZ]u|[dD]e|[dD]el|[dD]er)\s)*[A-ZÄÖÜ][a-zäöüß]+(?:-[A-ZÄÖÜ][a-zäöüß]+)*$"
+"""Regex pattern for last names. It allows multiple names and noble names."""
+
+FIRST_NAME_PATTERN = r"^(?:[A-ZÄÖÜ][a-zäöüß]+)(?:[ -][A-ZÄÖÜ][a-zäöüß]+)*$"
+"""Regex pattern for first names. Allows multiple names."""
+
+POSTAL_CODE_PATTERN = r"^\d{5}$"
+"""Regex pattern for German postal codes."""
+
+PLACE_PATTERN = (r"^(?:[A-ZÄÖÜ][a-zäöüß]+)(?:[ -][A-ZÄÖÜ][a-zäöüß]+)*(?:\s(?:am|an der|an den|im|in der|bei)\s[A-ZÄÖÜ][a-zäöüß]+"
+            + r"(?:[ -][A-ZÄÖÜ][a-zäöüß]+)*)?$")
+"""Regex pattern for place names."""
+
+ISBN_PATTERN = r"^(97[89])-\d{1,5}-\d{1,7}-\d{1,7}-\d$"
+"""Regex pattern for ISBN13."""
