@@ -57,7 +57,7 @@ keycloak_config = KeycloakConfig(
 
 logger.debug("keycloak: keycloak_config={}", keycloak_config)
 
-csv_config: Final = _keycloak_toml.get("csv", "/csv/library.csv")
+csv_config: Final = _keycloak_toml.get("csv", "/csv/member.csv")
 logger.debug("keycloak: csv={}", csv_config)
 
 

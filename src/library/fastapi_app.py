@@ -61,6 +61,7 @@ async def log_request_header(request: Request, call_next: Callable[[Request], Aw
     return await call_next(request)
 
 
+@app.middleware("http")
 async def log_response_time(request: Request, call_next: Callable[[Request], Awaitable[Response]]) -> Response:
     """Middleware to log the response time."""
     start = time()

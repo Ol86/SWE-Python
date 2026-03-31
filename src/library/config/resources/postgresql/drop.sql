@@ -1,6 +1,6 @@
 DROP INDEX IF EXISTS
-    adresse_library_id_idx,
-    adresse_postal_code_idx,
+    address_library_id_idx,
+    address_postal_code_idx,
     book_member_id_idx,
     member_last_name_idx;
 
