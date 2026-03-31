@@ -8,18 +8,19 @@ skinparam linetype ortho
 entity "Member" as Member {
     * id: integer <<generated>>
     --
-    * version: integer
+      username: text <<unique>>
       last_name: text
       first_name: text
-      **address**: Address
     * **gender**: Gender
       date_of_birth: date
-      email_address: text
+    * member_since: date
+    * is_student: bool
+      email_address: text <<unique>>
     * interests: list[Genre]
     * interests_json: list[text]
+      **address**: Address
       books: list[Book]
-    * is_student: bool
-    * member_since: date
+    * version: integer
     * generated: timestamp
     * updated: timestamp
 }
@@ -27,8 +28,8 @@ entity "Member" as Member {
 entity "Address" as Address {
     * id: integer <<generated>>
     --
-      place: text
       postal_code: text
+      place: text
     * **member_id**: integer <<FK>>
 }
 
@@ -36,10 +37,10 @@ entity "Book" as Book {
     * id: integer <<generated>>
     --
     name: text
-    * genre: Genre
+    isbn: text <<unique>>
     * author: text
-    * isbn: text <<unique>>
     * still_borrowed: boolean
+    * genre: Genre
     * **member_id**: integer <<FK>>
 }
 
