@@ -1,5 +1,5 @@
-"""
-This module provides the configuration for the application.
+"""The module provides the configuration for the application.
+
 It loads the configuration from a TOML file and makes it available as a dictionary.
 The configuration file is located in the resources directory of the project.
 The module also defines a constant for the path to the resources directory.

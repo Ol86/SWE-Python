@@ -1,6 +1,6 @@
-"""
-This module contains the ASGI server for the SWE API.
-It uses Uvicorn to run the FastAPI application defined in `project.fastapi_app`.
+"""The module contains the ASGI server for the SWE API.
+
+It uses Uvicorn to run the FastAPI application defined in`project.fastapi_app`.
 The `run` function starts the server on localhost at port 8000 using the h11 HTTP protocol.
 """
 
@@ -20,9 +20,7 @@ __all__: list[str] = ["run"]
 
 
 def run() -> None:
-    """
-    Run the ASGI server.
-    """
+    """Run the ASGI server."""
     uvicorn.run(
         "library:app",
         http="h11",

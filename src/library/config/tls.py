@@ -1,5 +1,5 @@
-"""
-This module provides the TLS configuration for the SWE API.
+"""The module provides the TLS configuration for the SWE API.
+
 It reads the TLS configuration from the application configuration and sets up the paths to the TLS certificate and key files.
 The TLS configuration is used to enable secure communication between the server and clients.
 """
