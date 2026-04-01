@@ -21,7 +21,6 @@ class MemberDTO:
     version: int
     first_name: str
     last_name: str
-    username: str
     gender: Gender | None
     date_of_birth: date
     member_since: date | None
@@ -41,7 +40,6 @@ class MemberDTO:
         self.version = member.version
         self.first_name = member.first_name
         self.last_name = member.last_name
-        self.username = member.username
         self.gender = member.gender
         self.date_of_birth = member.date_of_birth
         self.member_since = member.member_since

@@ -52,7 +52,6 @@ class BookModel(BaseModel):
 
         return new_dict
 
-
     def to_book(self) -> Book:
         """Convert model into a book object.
 
