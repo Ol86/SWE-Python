@@ -17,14 +17,7 @@ class AddressModel(BaseModel):
     place: Annotated[str, StringConstraints(pattern=PLACE_PATTERN, max_length=64)]
     """Place."""
 
-    model_config = ConfigDict(
-        json_schema_extra={
-            "example": {
-                "postal_code": "00000",
-                "place": "Test"
-            }
-        }
-    )
+    model_config = ConfigDict(json_schema_extra={"example": {"postal_code": "00000", "place": "Test"}})
 
     def _to_dict(self) -> dict[str, Any]:
         """Convert model into dictionary.
@@ -38,7 +31,6 @@ class AddressModel(BaseModel):
         new_dict["member"] = None
 
         return new_dict
-
 
     def to_address(self) -> Address:
         """Convert model into address object.
