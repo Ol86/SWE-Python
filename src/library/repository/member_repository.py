@@ -1,6 +1,6 @@
 """The Repository for managing member entities."""
 
-from collections.abc import Mapping, Sequence
+from collections.abc import Mapping
 from typing import Final
 
 from loguru import logger
@@ -59,28 +59,28 @@ class MemberRepository:
                 logger.debug(f"{member}")
                 return Slice(content=(member,), total_elements=1) if member is not None else Slice(content=(), total_elements=0)
             if key == "last_name":
-                member = self._find_by_last_name(username=value, session=session)
+                member = self._find_by_last_name(last_name=value, session=session)
                 logger.debug(f"{member}")
                 return Slice(content=(member,), total_elements=1) if member is not None else Slice(content=(), total_elements=0)
             if key == "email_address":
-                member = self._find_by_email_address(username=value, session=session)
+                member = self._find_by_email_address(email_address=value, session=session)
                 logger.debug(f"{member}")
                 return Slice(content=(member,), total_elements=1) if member is not None else Slice(content=(), total_elements=0)
         return Slice(content=(), total_elements=0)
 
-    def _find_all(self, pageable: Pageable, session: Session) -> Sequence[Member]:
+    def _find_all(self, pageable: Pageable, session: Session) -> Slice[Member]:
         """Find all members in the database.
 
         :param pageable: The pagination information for the query.
         :param session: The database session to use for the query.
-        :return: A sequence of all members in the database.
-        :rtype: Sequence[Member]
+        :return: A slice of all members in the database.
+        :rtype: Slice[Member]
         """
         logger.debug("_find_all")
-        offset = pageable.page_number * pageable.page_size
+        offset = pageable.number * pageable.size
         statement: Final = (
-            select(Member).options(joinedload(Member.address)).offset(offset).limit(pageable.page_size)
-            if pageable.page_size != 0
+            select(Member).options(joinedload(Member.address)).offset(offset).limit(pageable.size)
+            if pageable.size != 0
             else select(Member).options(joinedload(Member.address))
         )
         members: Final = (session.scalars(statement)).all()
@@ -138,7 +138,7 @@ class MemberRepository:
         :rtype: Member | None
         """
         logger.debug("email_address={}", email_address)
-        statement: Final = select(Member).options(joinedload(Member.address)).where(Member.email == email_address)
+        statement: Final = select(Member).options(joinedload(Member.address)).where(Member.email_address == email_address)
         member: Final = session.scalar(statement)
         logger.debug("member={}", member)
         return member
