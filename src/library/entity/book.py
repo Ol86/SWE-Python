@@ -23,7 +23,8 @@ class Book(Base):
     """Name of the book"""
 
     isbn: Mapped[str]
-    """International Standard Book Number with 13 digits, separated by -"""
+    """International Standard Book Number with 13 digits, separated by -
+    and starting with either 978 or 979."""
 
     author: Mapped[str | None]
     """Full name of the author"""
