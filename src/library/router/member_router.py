@@ -11,6 +11,7 @@ from library.repository import Pageable
 from library.repository.slice import Slice
 from library.router.constants import ETAG, IF_NONE_MATCH, IF_NONE_MATCH_MIN_LEN
 from library.router.depndencies import get_member_service
+from library.router.page import Page
 from library.security import Role, RolesRequired, User
 from library.service import MemberDTO, MemberService
 
@@ -112,7 +113,6 @@ def _member_slice_to_dict(
     :rtype: dict[str, Any]
     """
     member_dict: Final = tuple(_member_to_dict(member) for member in member_slice.content)
-    # TODO: Page.create() könnte auch direkt ein dict zurückgeben
     page: Final = Page.create(
         content=member_dict,
         pageable=pageable,
