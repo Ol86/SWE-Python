@@ -144,5 +144,15 @@ class MemberRepository:
         return member
 
     # ------------------------------------------------------------------------------------------------------------------------------
-    # Create operations
+    # Delete operations
     # ------------------------------------------------------------------------------------------------------------------------------
+    def delete_by_id(self, member_id: int, session: Session) -> None:
+        """Delete a member by their ID.
+
+        :param member_id: The ID of the member to delete.
+        :param session: The database session to use for the query.
+        """
+        logger.debug("member_id={}", member_id)
+        if (member := self.find_by_id(member_id=member_id, session=session)) is not None:
+            session.delete(member)
+            logger.debug("deleted")
