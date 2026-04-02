@@ -5,7 +5,7 @@ from typing import Annotated, Final
 from fastapi import APIRouter, Depends, Response, status
 from loguru import logger
 
-from library.router.depndencies import get_member_write_service
+from library.router.dependencies import get_member_write_service
 from library.service import MemberWriteService
 
 __all__ = [

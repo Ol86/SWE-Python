@@ -6,6 +6,9 @@ from library.repository.member_repository import MemberRepository
 from library.repository.session_factory import Session
 from library.security.user_service import UserService
 
+from library.entity.member import Member
+from library.service import MemberDTO
+
 __all__ = [
     "MemberWriteService",
 ]
@@ -22,6 +25,18 @@ class MemberWriteService:
         """
         self.repo: MemberRepository = repo
         self.user_service: UserService = user_service
+
+    def update(self, member: Member, member_id: int, version: int) -> MemberDTO:
+        """Update data of a current member.
+
+        :param member: New member data
+        :param member_id: ID of member to update
+        :param version: Version number
+        :return: Updated member
+        :rtype: MemberDTO
+        :raises NotFoundError: If member doesn't exist.
+        :raises VersionOutdatedError: If verson isn't up to date.
+        """
 
     def delete_by_id(self, member_id: int) -> None:
         """Delete a member by their ID.
