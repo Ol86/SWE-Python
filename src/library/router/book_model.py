@@ -6,7 +6,7 @@ from pydantic import BaseModel, ConfigDict, StringConstraints
 
 from library.entity.book import Book
 from library.entity.genre import Genre
-from library.router.constants import ISBN_PATTERN
+from library.router.constants import AUTHOR_PATTERN, ISBN_PATTERN
 
 
 class BookModel(BaseModel):
@@ -18,7 +18,7 @@ class BookModel(BaseModel):
     isbn: Annotated[str, StringConstraints(pattern=ISBN_PATTERN, max_length=17)]
     """The ISBN number of the book."""
 
-    author: str | None = None
+    author: Annotated[str | None, StringConstraints(pattern=AUTHOR_PATTERN)]
     """The book's author."""
 
     still_borrowed: bool | None = None
