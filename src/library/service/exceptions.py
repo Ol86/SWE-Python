@@ -2,7 +2,37 @@
 
 from collections.abc import Mapping
 
-__all__ = ["ForbiddenError", "NotFoundError"]
+__all__ = [
+    "EmailExistsError",
+    "ForbiddenError",
+    "NotFoundError",
+    "UsernameExistsError",
+    "VersionOutdatedError"
+]
+
+
+class EmailExistsError(Exception):
+    """Exception for already existing email address."""
+
+    def __init__(self, email: str) -> None:
+        """Initialize Error.
+
+        :param email: Already existing email address
+        """
+        super().__init__(f"Already existing email: {email}")
+        self.emal = email
+
+
+class UsernameExistsError(Exception):
+    """Exception for already existing username."""
+
+    def __init__(self, username: str | None) -> None:
+        """Initialize Error.
+
+        :param username: Already existing username
+        """
+        super().__init__(f"Already existing username: {username}")
+        self.username = username
 
 
 class ForbiddenError(Exception):
@@ -25,3 +55,15 @@ class NotFoundError(Exception):
         super().__init__("Not Found")
         self.member_id = member_id
         self.searchparam = searchparam
+
+
+class VersionOutdatedError(Exception):
+    """Exception for deprecated version number during updating."""
+
+    def __init__(self, version: int) -> None:
+        """Initialize Error.
+
+        :param version: Deprecated version number
+        """
+        super().__init__(f"Deprecated version: {version}")
+        self.version = version
