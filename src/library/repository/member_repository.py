@@ -144,6 +144,44 @@ class MemberRepository:
         return member
 
     # ------------------------------------------------------------------------------------------------------------------------------
+    # Write operations
+    # ------------------------------------------------------------------------------------------------------------------------------
+    def create(self, member: Member, session: Session) -> Member:
+        """Save a new member.
+
+        :param member: The new member without ID
+        :param session: The session
+        :return: The new member with ID
+        :rtype: Member
+        """
+        logger.debug(
+            "member={}, member.address={}, member.books={}",
+            member, member.address, member.books
+            )
+
+        session.add(instance=member)
+        session.flush(objects=[member])
+        logger.debug("member_id={}", member.id)
+
+        return member
+
+    def update(self, member: Member, session: Session) -> Member | None:
+        """Update an existing member.
+
+        :param member: New member data
+        :param session: The session
+        :return: Updated member or None
+        :rtype: Member | None
+        """
+        logger.debug("{}", member)
+
+        member_db = self.find_by_id(member_id=member.id, session=session)
+        if member_db:
+            logger.debug("{}", member_db)
+
+        return member_db
+
+    # ------------------------------------------------------------------------------------------------------------------------------
     # Delete operations
     # ------------------------------------------------------------------------------------------------------------------------------
     def delete_by_id(self, member_id: int, session: Session) -> None:
