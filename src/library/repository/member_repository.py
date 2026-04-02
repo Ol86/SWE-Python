@@ -181,13 +181,13 @@ class MemberRepository:
 
         return member_db
 
-    def exists_email_already(self, email_address: str, member_id: int, session: Session) -> bool:
+    def is_email_already_existing(self, email_address: str, session: Session, member_id: int = -1) -> bool:
         """Check if the email address already exists for another member.
 
         :param email_address: Email address
-        :param member_id: Member ID
         :param session: The session
-        :return: True, if alreay exists, otherwise False
+        :param member_id = -1: The member ID
+        :return: True, if already exists, otherwise False
         :rtype: bool
         """
         logger.debug("email_address={}", email_address)
@@ -196,7 +196,13 @@ class MemberRepository:
         id_db: Final = session.scalar(statement)
         logger.debug("id_db={}", id_db)
 
-        return id_db is not None and id_db != member_id
+        if id_db is None:
+            return False
+
+        if member_id > -1:
+            return id_db != member_id
+
+        return True
 
     # ------------------------------------------------------------------------------------------------------------------------------
     # Delete operations

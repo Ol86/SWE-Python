@@ -7,8 +7,8 @@ from loguru import logger
 from library.entity.member import Member
 from library.repository.member_repository import MemberRepository
 from library.repository.session_factory import Session
-from library.security.user_service import UserService
-from library.service.exceptions import EmailExistsError, NotFoundError, VersionOutdatedError
+from library.security.user_service import User, UserService
+from library.service.exceptions import EmailExistsError, NotFoundError, UsernameExistsError, VersionOutdatedError
 from library.service.member_dto import MemberDTO
 
 __all__ = [
@@ -27,6 +27,55 @@ class MemberWriteService:
         """
         self.repo: MemberRepository = repo
         self.user_service: UserService = user_service
+
+    def create(self, member: Member) -> MemberDTO:
+        """Create a new member.
+
+        :param member: The new member without ID
+        :return: The new member with ID
+        :rtype: MemberDTO
+        :raises ValueError: If username is None
+        :raises UsernameExistsError: If username already exists.
+        :raises EmailExistsError: If email address already exists.
+        """
+        logger.debug(
+            "member={}, member.address={}, member.books={}",
+            member, member.address, member.books
+        )
+
+        username: Final = member.username
+        if username is None:
+            raise ValueError
+
+        if self.user_service.username_exists(username):
+            raise UsernameExistsError(username)
+
+        email_address: Final = member.email_address
+        if self.user_service.email_exists(email_address):
+            raise EmailExistsError(email_address)
+
+        user: Final = User(
+            username=username,
+            email=email_address,
+            nachname=member.last_name,
+            vorname=member.first_name,
+            password="p",  # noqa: S106
+            roles=[],
+        )
+        user_id = self.user_service.create_user(user)
+        logger.debug("user_id={}", user_id)
+
+        with Session() as session:
+            if self.repo.is_email_already_existing(email_address=email_address, session=session):
+                raise EmailExistsError(email_address)
+
+            member_db: Final = self.repo.create(member=member, session=session)
+            member_dto: Final = MemberDTO(member_db)
+            session.commit()
+
+        #TODO send_mail
+        logger.debug("member_dto={}", member_dto)
+        return member_dto
 
     def update(self, member: Member, member_id: int, version: int) -> MemberDTO:
         """Update data of a current member.
@@ -51,7 +100,7 @@ class MemberWriteService:
                 raise VersionOutdatedError(version)
 
             email_address: Final = member.email_address
-            if email_address != member_db.email and self.repo.exists_email_already(
+            if email_address != member_db.email and self.repo.is_email_already_existing(
                 member_id=member_id,
                 email_address=email_address,
                 session=session
