@@ -10,7 +10,7 @@ from loguru import logger
 from library.repository import Pageable
 from library.repository.slice import Slice
 from library.router.constants import ETAG, IF_NONE_MATCH, IF_NONE_MATCH_MIN_LEN
-from library.router.depndencies import get_member_service
+from library.router.dependencies import get_member_service
 from library.router.page import Page
 from library.security import Role, RolesRequired, User
 from library.service import MemberDTO, MemberService
