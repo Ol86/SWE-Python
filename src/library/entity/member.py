@@ -50,11 +50,11 @@ class Member(Base):
     email_address: Mapped[str] = mapped_column(unique=True)
     """Unique email address"""
 
-    interests: InitVar[list[Genre] | None]
+    interests: InitVar[list[Genre] | None]  # ty: ignore[invalid-type-form]
     """Tansient list of genre interests of the member"""
 
-    interests_json: Mapped[list[str] | None] = mapped_column(JSON, name="genres", init=False)
-    """Persistent list of genres for a JSON array"""
+    interests_json: Mapped[list[str] | None] = mapped_column(JSON, name="interests", init=False)
+    """Persistent list of interests for a JSON array"""
 
     address: Mapped[Address] = relationship(
         back_populates="member",
@@ -94,10 +94,10 @@ class Member(Base):
     @reconstructor
     def on_load(self) -> None:
         """Initialise Enum list through the database strings."""
-        self.interests = [Genre[genre_name] for genre_name in self.interests_json] if self.interests_json is not None else []
+        self.interests = [Genre[genre_name] for genre_name in self.interests_json] if self.interests_json is not None else []  # pyright: ignore[reportAttributeAccessIssue]
         logger.debug(
             "interests={}",
-            self.interests,
+            self.interests,  # pyright: ignore[reportAttributeAccessIssue]
         )
 
     def set(self, member: Self) -> None:

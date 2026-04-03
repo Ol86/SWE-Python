@@ -4,7 +4,6 @@ from sqlalchemy import ForeignKey, Identity
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from library.entity.base import Base
-from library.entity.member import Member
 
 
 class Address(Base):
@@ -24,7 +23,7 @@ class Address(Base):
     member_id: Mapped[int] = mapped_column(ForeignKey("member.id"))
     """The ID of the member that lives at the address as a Foreign Key"""
 
-    member: Mapped[Member] = relationship(back_populates="address")
+    member: Mapped[Member] = relationship(back_populates="address")  # noqa: F821 # ty: ignore[unresolved-reference] # pyright: ignore[reportUndefinedVariable]
     """Transient Member object"""
 
     def __repr__(self) -> str:
