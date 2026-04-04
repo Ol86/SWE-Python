@@ -130,5 +130,7 @@ def _member_to_dict(member: MemberDTO) -> dict[str, Any]:
     """
     member_dict: Final = asdict(obj=member)
     member_dict.pop("version")
-    member_dict.update({"birth_date": member.date_of_birth.isoformat()})
+    member_dict.update({"date_of_birth": member.date_of_birth.isoformat()})
+    if member.member_since is not None:
+        member_dict.update({"member_since": member.member_since.isoformat()})
     return member_dict

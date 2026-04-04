@@ -5,7 +5,6 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from library.entity.base import Base
 from library.entity.genre import Genre
-from library.entity.member import Member
 
 
 class Book(Base):
@@ -38,7 +37,7 @@ class Book(Base):
     member_id: Mapped[int] = mapped_column(ForeignKey("member.id"))
     """ID of member that has borrowed this book as a foreign key"""
 
-    member: Mapped[Member] = relationship(back_populates="books")
+    member: Mapped[Member] = relationship(back_populates="books")  # noqa: F821 # ty: ignore[unresolved-reference] # pyright: ignore[reportUndefinedVariable]
     """Transient Member object"""
 
     def __repr__(self) -> str:
