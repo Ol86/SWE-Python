@@ -50,7 +50,7 @@ class Member(Base):
     email_address: Mapped[str] = mapped_column(unique=True)
     """Unique email address"""
 
-    interests: InitVar[list[Genre] | None]  # ty: ignore[invalid-type-form]
+    interests: InitVar[list[Genre] | None]
     """Tansient list of genre interests of the member"""
 
     interests_json: Mapped[list[str] | None] = mapped_column(JSON, name="interests", init=False)
