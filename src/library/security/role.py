@@ -9,5 +9,5 @@ class Role(StrEnum):
     ADMIN = "ADMIN"
     """Role for admins."""
 
-    MEMBER = "MEMBER"
-    """Role for members."""
+    PATIENT = "PATIENT"
+    """Role for patients."""

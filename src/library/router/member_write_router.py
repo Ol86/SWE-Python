@@ -3,7 +3,6 @@ from typing import Annotated, Final
 
 from fastapi import APIRouter, Depends, Request, Response, status
 from loguru import logger
-from patient.router.dependencies import get_write_service
 
 from library.problem_details import create_problem_details
 from library.router.constants import IF_MATCH, IF_MATCH_MIN_LEN
@@ -24,7 +23,7 @@ member_write_router: Final = APIRouter(tags=["Write"])
 def post(
     member_model: MemberCreationModel,
     request: Request,
-    service: Annotated[MemberWriteService, Depends(get_write_service)]
+    service: Annotated[MemberWriteService, Depends(get_member_write_service)]
 ) -> Response:
     """Create new member.
 
@@ -49,13 +48,13 @@ def post(
 
 @member_write_router.put(
     path="/{member_id}",
-    dependencies=[Depends(RolesRequired([Role.ADMIN, Role.MEMBER]))],
+    dependencies=[Depends(RolesRequired([Role.ADMIN, Role.PATIENT]))],
 )
 def put(
     member_id: int,
     member_update_model: MemberUpdateModel,
     request: Request,
-    service: Annotated[MemberWriteService, Depends(get_write_service)],
+    service: Annotated[MemberWriteService, Depends(get_member_write_service)],
 ) -> Response:
     """Update existing member.
 
