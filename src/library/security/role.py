@@ -1,4 +1,4 @@
-"""Enum fr roles."""
+"""Enum for roles."""
 
 from enum import StrEnum
 
