@@ -154,10 +154,7 @@ class MemberRepository:
         :return: The new member with ID
         :rtype: Member
         """
-        logger.debug(
-            "member={}, member.address={}, member.books={}",
-            member, member.address, member.books
-            )
+        logger.debug("member={}, member.address={}, member.books={}", member, member.address, member.books)
 
         session.add(instance=member)
         session.flush(objects=[member])
@@ -181,12 +178,12 @@ class MemberRepository:
 
         return member_db
 
-    def is_email_already_existing(self, email_address: str, session: Session, member_id: int = -1) -> bool:
+    def is_email_already_existing(self, email_address: str, session: Session, member_id: int) -> bool:
         """Check if the email address already exists for another member.
 
         :param email_address: Email address
         :param session: The session
-        :param member_id = -1: The member ID
+        :param member_id: The member ID
         :return: True, if already exists, otherwise False
         :rtype: bool
         """
