@@ -26,7 +26,7 @@ class MemberService:
         """Find a member by their ID and return a MemberDTO.
 
         :param member_id: The ID of the member to find.
-        :param session: The database session to use for the query.
+        :param user: The user making the request.
         :return: A MemberDTO representing the member with the given ID, or None if not found.
         :rtype: MemberDTO | None
         """

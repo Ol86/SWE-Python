@@ -5,7 +5,11 @@ nav:
   - ER-Diagram: er-diagram.md
   - Modules:
       - __init__: modules/__init__.md
+      - REST API: modules/rest.md
+      - Business Logic: modules/service.md
+      - Database Access: modules/repository.md
       - Entities: modules/entity.md
+      - Authentication and Authorization: modules/security.md
 
 theme:
   name: material

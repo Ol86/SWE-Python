@@ -154,10 +154,7 @@ class MemberRepository:
         :return: The new member with ID
         :rtype: Member
         """
-        logger.debug(
-            "member={}, member.address={}, member.books={}",
-            member, member.address, member.books
-            )
+        logger.debug("member={}, member.address={}, member.books={}", member, member.address, member.books)
 
         session.add(instance=member)
         session.flush(objects=[member])
