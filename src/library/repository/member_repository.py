@@ -178,12 +178,12 @@ class MemberRepository:
 
         return member_db
 
-    def is_email_already_existing(self, email_address: str, session: Session, member_id: int) -> bool:
+    def is_email_already_existing(self, email_address: str, session: Session, member_id: int = -1) -> bool:
         """Check if the email address already exists for another member.
 
         :param email_address: Email address
         :param session: The session
-        :param member_id: The member ID
+        :param member_id = -1: The member ID
         :return: True, if already exists, otherwise False
         :rtype: bool
         """
