@@ -1,7 +1,8 @@
 """Data Transfer Object class for member data."""
-
 from dataclasses import dataclass
 from datetime import date
+
+import strawberry
 
 from library.entity import Member
 from library.entity.gender import Gender
@@ -12,7 +13,7 @@ __all__ = ["MemberDTO"]
 
 
 @dataclass(eq=False, slots=True, kw_only=True)
-# TODO Strawberry
+@strawberry.type
 class MemberDTO:
     """DTO class for read or saved member data."""
 

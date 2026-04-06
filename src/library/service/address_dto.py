@@ -2,11 +2,13 @@
 
 from dataclasses import dataclass
 
+import strawberry
+
 from library.entity import Address
 
 
 @dataclass(eq=False, slots=True, kw_only=True)
-# TODO Strawberry
+@strawberry.type
 class AddressDTO:
     """DTO class for address information."""
 
