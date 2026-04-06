@@ -15,7 +15,6 @@ from library.entity.gender import Gender
 from library.entity.genre import Genre
 
 
-# TODO Strawberry
 class Member(Base):
     """Entity class for a library member."""
 
