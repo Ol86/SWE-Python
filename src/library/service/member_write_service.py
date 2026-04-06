@@ -1,5 +1,4 @@
 """The bussiness logic for member write operations."""
-
 from typing import Final
 
 from loguru import logger
@@ -9,6 +8,7 @@ from library.repository.member_repository import MemberRepository
 from library.repository.session_factory import Session
 from library.security.user_service import User, UserService
 from library.service.exceptions import EmailExistsError, NotFoundError, UsernameExistsError, VersionOutdatedError
+from library.service.mail_service import send_mail
 from library.service.member_dto import MemberDTO
 
 __all__ = [
@@ -73,7 +73,7 @@ class MemberWriteService:
             member_dto: Final = MemberDTO(member_db)
             session.commit()
 
-        #TODO send_mail
+        send_mail(member_dto=member_dto)
         logger.debug("member_dto={}", member_dto)
         return member_dto
 
