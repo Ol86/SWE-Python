@@ -4,7 +4,6 @@ from typing import Final
 import strawberry
 from fastapi import Request
 from loguru import logger
-from patient.graphql_api import graphql_router
 from strawberry.fastapi import GraphQLRouter
 
 from library.config.graphql import graphql_ide
