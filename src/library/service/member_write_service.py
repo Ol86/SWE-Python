@@ -100,7 +100,7 @@ class MemberWriteService:
                 raise VersionOutdatedError(version)
 
             email_address: Final = member.email_address
-            if email_address != member_db.email and self.repo.is_email_already_existing(
+            if email_address != member_db.email_address and self.repo.is_email_already_existing(
                 member_id=member_id,
                 email_address=email_address,
                 session=session
