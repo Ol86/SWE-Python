@@ -3,11 +3,17 @@
 from typing import Final
 
 __all__ = [
+    "AUTHOR_PATTERN",
     "ETAG",
+    "FIRST_NAME_PATTERN",
     "IF_MATCH",
     "IF_MATCH_MIN_LEN",
     "IF_NONE_MATCH",
     "IF_NONE_MATCH_MIN_LEN",
+    "ISBN_PATTERN",
+    "LAST_NAME_PATTERN",
+    "PLACE_PATTERN",
+    "POSTAL_CODE_PATTERN",
 ]
 
 ETAG: Final = "ETag"
