@@ -10,6 +10,7 @@ from library.entity.gender import Gender
 from library.entity.member import Member
 from library.router.constants import FIRST_NAME_PATTERN, LAST_NAME_PATTERN
 
+__all__ = ["MemberUpdateModel"]
 
 class MemberUpdateModel(BaseModel):
     """Model for updating member data using POST."""

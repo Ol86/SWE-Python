@@ -11,6 +11,7 @@ from library.router.address_model import AddressModel
 from library.router.book_model import BookModel
 from library.router.member_update_model import MemberUpdateModel
 
+__all__ = ["MemberCreationModel"]
 
 class MemberCreationModel(MemberUpdateModel):
     """Model for member data for POST."""
