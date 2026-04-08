@@ -2,8 +2,9 @@
 
 from typing import Final
 
-from patient.config.config import app_config
 from strawberry.http.ides import GraphQL_IDE
+
+from library.config.config import app_config
 
 __all__ = ["graphql_ide"]
 
