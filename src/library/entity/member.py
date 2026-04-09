@@ -15,7 +15,6 @@ from library.entity.gender import Gender
 from library.entity.genre import Genre
 
 
-# TODO Strawberry
 class Member(Base):
     """Entity class for a library member."""
 
@@ -66,7 +65,7 @@ class Member(Base):
         back_populates="member",
         cascade="save-update, delete",
     )
-    """Books currently borrowed by the member (1:N relationship)"""
+    """Books currently and previously borrowed by the member (1:N relationship)"""
 
     version: Mapped[int] = mapped_column(nullable=False, default=0)
     """Version number for prevention of lost updates"""
@@ -109,7 +108,7 @@ class Member(Base):
         self.last_name = member.last_name
         self.username = member.username
         self.date_of_birth = member.date_of_birth
-        self.email = member.email
+        self.email_address = member.email_address
 
     def __eq__(self, other: Any) -> bool:
         """Compare two Members without using joins.
