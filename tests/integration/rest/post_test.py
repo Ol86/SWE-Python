@@ -4,7 +4,7 @@ from http import HTTPStatus
 from re import search
 from typing import Final
 
-from common_test import ctx, rest_url
+from constants import CTX, REST_URL
 from httpx import post
 from pytest import mark
 
@@ -44,10 +44,10 @@ def test_create_member() -> None:
 
     #act
     response: Final = post(
-        rest_url,
+        REST_URL,
         json=member_data,
         headers=headers,
-        verify=ctx,
+        verify=CTX,
     )
 
     #assert
