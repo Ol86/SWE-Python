@@ -3,7 +3,7 @@
 from http import HTTPStatus
 from typing import Final
 
-from common_test import ctx, graphql_url
+from constants import CTX, GRAPHQL_URL
 from httpx import post
 from pytest import mark
 
@@ -49,7 +49,7 @@ def test_create_member() -> None:
             """,
     }
     #act
-    response: Final = post(graphql_url, json=query, verify=ctx)
+    response: Final = post(GRAPHQL_URL, json=query, verify=CTX)
 
     #assert
     assert response is not None
