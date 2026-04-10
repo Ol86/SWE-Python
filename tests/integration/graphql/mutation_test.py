@@ -25,7 +25,7 @@ def test_create_member() -> None:
                         date_of_birth: "1990-01-01"
                         member_since: "2020-01-01"
                         is_student: false
-                        email_address: "test.member@example.com"
+                        email_address: "test.graphql.member@example.com"
                         interests: [FANTASY]
                         address: {
                             postal_code: "12345"
