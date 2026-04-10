@@ -4,6 +4,27 @@ from pathlib import Path
 from ssl import create_default_context
 from typing import Final
 
+__all__ = [
+    "BASE_URL",
+    "CERTIFICATE",
+    "CTX",
+    "DB_POPULATE_PATH",
+    "GRAPHQL_PATH",
+    "GRAPHQL_URL",
+    "HEALTH_URL",
+    "HOST",
+    "KEYCLOAK_POPULATE_PATH",
+    "PASSWORD_ADMIN",
+    "PORT",
+    "REST_PATH",
+    "REST_URL",
+    "SCHEMA",
+    "TIMEOUT",
+    "TOKEN_PATH",
+    "USERNAME_ADMIN",
+]
+
+
 SCHEMA: Final = "https"
 PORT: Final = 8000
 
@@ -29,4 +50,4 @@ TIMEOUT: Final = 2
 
 CERTIFICATE: Final = str(Path("tests") / "integration" / "certificate.crt")
 
-CTX = create_default_context(cafile=CERTIFICATE)
+CTX = create_default_context(cafile=CERTIFICATE) #TODO Constant or variable?
