@@ -83,7 +83,7 @@ def login_graphql(  # noqa: D103
     password: str = password_admin,  # NOSONAR
 ) -> str:
     login_query: Final = {
-        "query": f'mutation {{ login(username: "{username}", password: "{password}") {{ token }} }}'  # noqa: E501
+        "query": f'mutation {{ login(username: "{username}", password: "{password}") {{ token }} }}'
     }
     response: Final = post(
         f"{base_url}{graphql_path}",
