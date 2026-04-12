@@ -15,7 +15,6 @@ from library.entity.gender import Gender
 from library.entity.genre import Genre
 
 
-# TODO Strawberry
 class Member(Base):
     """Entity class for a library member."""
 
@@ -53,8 +52,8 @@ class Member(Base):
     interests: InitVar[list[Genre] | None]
     """Tansient list of genre interests of the member"""
 
-    interests_json: Mapped[list[str] | None] = mapped_column(JSON, name="genres", init=False)
-    """Persistent list of genres for a JSON array"""
+    interests_json: Mapped[list[str] | None] = mapped_column(JSON, name="interests", init=False)
+    """Persistent list of interests for a JSON array"""
 
     address: Mapped[Address] = relationship(
         back_populates="member",
@@ -66,7 +65,7 @@ class Member(Base):
         back_populates="member",
         cascade="save-update, delete",
     )
-    """Books currently borrowed by the member (1:N relationship)"""
+    """Books currently and previously borrowed by the member (1:N relationship)"""
 
     version: Mapped[int] = mapped_column(nullable=False, default=0)
     """Version number for prevention of lost updates"""
@@ -94,10 +93,10 @@ class Member(Base):
     @reconstructor
     def on_load(self) -> None:
         """Initialise Enum list through the database strings."""
-        self.interests = [Genre[genre_name] for genre_name in self.interests_json] if self.interests_json is not None else []
+        self.interests = [Genre[genre_name] for genre_name in self.interests_json] if self.interests_json is not None else []  # pyright: ignore[reportAttributeAccessIssue]
         logger.debug(
             "interests={}",
-            self.interests,
+            self.interests,  # pyright: ignore[reportAttributeAccessIssue]
         )
 
     def set(self, member: Self) -> None:
@@ -109,7 +108,7 @@ class Member(Base):
         self.last_name = member.last_name
         self.username = member.username
         self.date_of_birth = member.date_of_birth
-        self.email = member.email
+        self.email_address = member.email_address
 
     def __eq__(self, other: Any) -> bool:
         """Compare two Members without using joins.

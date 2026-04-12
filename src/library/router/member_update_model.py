@@ -10,6 +10,7 @@ from library.entity.gender import Gender
 from library.entity.member import Member
 from library.router.constants import FIRST_NAME_PATTERN, LAST_NAME_PATTERN
 
+__all__ = ["MemberUpdateModel"]
 
 class MemberUpdateModel(BaseModel):
     """Model for updating member data using POST."""
@@ -56,7 +57,7 @@ class MemberUpdateModel(BaseModel):
                 "date_of_birth": "2026-03-31",
                 "member_since": "2026-03-31",
                 "is_student": False,
-                "email_address": "test@acme.com"
+                "email_address": "test@acme.com",
             }
         }
     )
@@ -77,7 +78,6 @@ class MemberUpdateModel(BaseModel):
         new_dict["updated"] = None
 
         return new_dict
-
 
     def to_member(self) -> Member:
         """Convert model to a member object.

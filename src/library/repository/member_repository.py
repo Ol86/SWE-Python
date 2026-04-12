@@ -1,6 +1,6 @@
 """The Repository for managing member entities."""
 
-from collections.abc import Mapping, Sequence
+from collections.abc import Mapping
 from typing import Final
 
 from loguru import logger
@@ -59,28 +59,28 @@ class MemberRepository:
                 logger.debug(f"{member}")
                 return Slice(content=(member,), total_elements=1) if member is not None else Slice(content=(), total_elements=0)
             if key == "last_name":
-                member = self._find_by_last_name(username=value, session=session)
+                member = self._find_by_last_name(last_name=value, session=session)
                 logger.debug(f"{member}")
                 return Slice(content=(member,), total_elements=1) if member is not None else Slice(content=(), total_elements=0)
             if key == "email_address":
-                member = self._find_by_email_address(username=value, session=session)
+                member = self._find_by_email_address(email_address=value, session=session)
                 logger.debug(f"{member}")
                 return Slice(content=(member,), total_elements=1) if member is not None else Slice(content=(), total_elements=0)
         return Slice(content=(), total_elements=0)
 
-    def _find_all(self, pageable: Pageable, session: Session) -> Sequence[Member]:
+    def _find_all(self, pageable: Pageable, session: Session) -> Slice[Member]:
         """Find all members in the database.
 
         :param pageable: The pagination information for the query.
         :param session: The database session to use for the query.
-        :return: A sequence of all members in the database.
-        :rtype: Sequence[Member]
+        :return: A slice of all members in the database.
+        :rtype: Slice[Member]
         """
         logger.debug("_find_all")
-        offset = pageable.page_number * pageable.page_size
+        offset = pageable.number * pageable.size
         statement: Final = (
-            select(Member).options(joinedload(Member.address)).offset(offset).limit(pageable.page_size)
-            if pageable.page_size != 0
+            select(Member).options(joinedload(Member.address)).offset(offset).limit(pageable.size)
+            if pageable.size != 0
             else select(Member).options(joinedload(Member.address))
         )
         members: Final = (session.scalars(statement)).all()
@@ -138,11 +138,79 @@ class MemberRepository:
         :rtype: Member | None
         """
         logger.debug("email_address={}", email_address)
-        statement: Final = select(Member).options(joinedload(Member.address)).where(Member.email == email_address)
+        statement: Final = select(Member).options(joinedload(Member.address)).where(Member.email_address == email_address)
         member: Final = session.scalar(statement)
         logger.debug("member={}", member)
         return member
 
     # ------------------------------------------------------------------------------------------------------------------------------
-    # Create operations
+    # Write operations
     # ------------------------------------------------------------------------------------------------------------------------------
+    def create(self, member: Member, session: Session) -> Member:
+        """Save a new member.
+
+        :param member: The new member without ID
+        :param session: The session
+        :return: The new member with ID
+        :rtype: Member
+        """
+        logger.debug("member={}, member.address={}, member.books={}", member, member.address, member.books)
+
+        session.add(instance=member)
+        session.flush(objects=[member])
+        logger.debug("member_id={}", member.id)
+
+        return member
+
+    def update(self, member: Member, session: Session) -> Member | None:
+        """Update an existing member.
+
+        :param member: New member data
+        :param session: The session
+        :return: Updated member or None
+        :rtype: Member | None
+        """
+        logger.debug("{}", member)
+
+        member_db = self.find_by_id(member_id=member.id, session=session)
+        if member_db:
+            logger.debug("{}", member_db)
+
+        return member_db
+
+    def is_email_already_existing(self, email_address: str, session: Session, member_id: int = -1) -> bool:
+        """Check if the email address already exists for another member.
+
+        :param email_address: Email address
+        :param session: The session
+        :param member_id = -1: The member ID
+        :return: True, if already exists, otherwise False
+        :rtype: bool
+        """
+        logger.debug("email_address={}", email_address)
+
+        statement: Final = select(Member.id).where(Member.email_address == email_address)
+        id_db: Final = session.scalar(statement)
+        logger.debug("id_db={}", id_db)
+
+        if id_db is None:
+            return False
+
+        if member_id > -1:
+            return id_db != member_id
+
+        return True
+
+    # ------------------------------------------------------------------------------------------------------------------------------
+    # Delete operations
+    # ------------------------------------------------------------------------------------------------------------------------------
+    def delete_by_id(self, member_id: int, session: Session) -> None:
+        """Delete a member by their ID.
+
+        :param member_id: The ID of the member to delete.
+        :param session: The database session to use for the query.
+        """
+        logger.debug("member_id={}", member_id)
+        if (member := self.find_by_id(member_id=member_id, session=session)) is not None:
+            session.delete(member)
+            logger.debug("deleted")
