@@ -19,13 +19,13 @@ def test_create_member() -> None:
                 create_member(
                     memberInput: {
                         username: "test_member_graphql"
-                        first_name: "GraphQL"
-                        last_name: "Test Member"
+                        first_name: "Mutation"
+                        last_name: "Test"
                         gender: MALE
                         date_of_birth: "1990-01-01"
                         member_since: "2020-01-01"
                         is_student: false
-                        email_address: "test.graphql.member@example.com"
+                        email_address: "mutationmember@graphql.com"
                         interests: [FANTASY]
                         address: {
                             postal_code: "12345"
