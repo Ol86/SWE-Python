@@ -16,12 +16,12 @@ def test_update_member() -> None:
     #arrange
     token: Final = login()
     assert token is not None
-    member_id: Final = 40
+    member_id: Final = 3
     if_match: Final = '"0"'
     updated_member_data: Final = {
         "username": "updated_member_rest",
-        "first_name": "REST",
-        "last_name": "Updated Member",
+        "first_name": "Put",
+        "last_name": "Test",
         "gender": "M",
         "date_of_birth": "1990-01-01",
         "member_since": "2020-01-01",
