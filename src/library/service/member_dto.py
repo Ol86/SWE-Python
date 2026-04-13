@@ -1,4 +1,5 @@
 """Data Transfer Object class for member data."""
+
 from dataclasses import dataclass
 from datetime import date
 

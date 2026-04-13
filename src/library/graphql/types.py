@@ -1,4 +1,5 @@
 """Schemas for GraphQL types."""
+
 from datetime import date
 
 import strawberry
