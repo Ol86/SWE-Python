@@ -13,27 +13,27 @@ from pytest import mark
 @mark.put_request
 def test_update_member() -> None:
     """Test for updating an existing member using REST API."""
-    #arrange
+    # arrange
     token: Final = login()
     assert token is not None
-    member_id: Final = 40
+    member_id: Final = 3
     if_match: Final = '"0"'
     updated_member_data: Final = {
         "username": "updated_member_rest",
-        "first_name": "REST",
-        "last_name": "Updated Member",
+        "first_name": "Rest",
+        "last_name": "Updated",
         "gender": "M",
         "date_of_birth": "1990-01-01",
         "member_since": "2020-01-01",
         "is_student": False,
-        "email_address": "updated_member@example.com"
+        "email_address": "updated_member@example.com",
     }
     headers = {
         "Authorization": f"Bearer {token}",
         "If-Match": if_match,
     }
 
-    #act
+    # act
     response: Final = put(
         f"{REST_URL}/{member_id}",
         json=updated_member_data,
@@ -41,6 +41,6 @@ def test_update_member() -> None:
         verify=CTX,
     )
 
-    #assert
+    # assert
     assert response.status_code == HTTPStatus.NO_CONTENT
     assert not response.text
