@@ -18,14 +18,14 @@ def test_create_member() -> None:
     #arrange
     member_data: Final = {
         "username": "test_member_rest",
-        "first_name": "REST",
-        "last_name": "Test Member",
+        "first_name": "Post",
+        "last_name": "Test",
         "gender": "M",
         "date_of_birth": "1990-01-01",
         "member_since": "2020-01-01",
         "is_student": False,
         "email_address": "testmemberrest@example.com",
-        "interests": ["FANTASY"],
+        "interests": ["F"],
         "address": {
             "postal_code": "12345",
             "place": "Test City",
@@ -36,7 +36,7 @@ def test_create_member() -> None:
                 "isbn": "978-3-16-148410-0",
                 "author": "John Doe",
                 "still_borrowed": True,
-                "genre": "FANTASY",
+                "genre": "F",
             }
         ],
     }
