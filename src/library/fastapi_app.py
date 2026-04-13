@@ -183,3 +183,17 @@ def username_exists_exception_handler(_request: Request, err: UsernameExistsErro
         status_code=status.HTTP_409_CONFLICT,
         detail=str(err),
     )
+
+
+@app.exception_handler(VersionOutdatedError)
+def version_outdated_exception_handler(_request: Request, err: VersionOutdatedError) -> Response:
+    """Exception handler for VersionOutdatedError.
+
+    :param _request: The incoming request that caused the exception.
+    :param err: The VersionOutdatedError exception that was raised.
+    :return: A Response object with a 412 status code and the error message as plain.
+    """
+    return create_problem_details(
+        status_code=status.HTTP_412_PRECONDITION_FAILED,
+        detail=str(err),
+    )
