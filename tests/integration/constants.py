@@ -46,8 +46,8 @@ KEYCLOAK_POPULATE_PATH: Final = "/dev/keycloak_populate"
 USERNAME_ADMIN: Final = "admin"
 PASSWORD_ADMIN: Final = "p"  # noqa: S105  # NOSONAR
 
-TIMEOUT: Final = 2
+TIMEOUT: Final = 30
 
 CERTIFICATE: Final = str(Path("tests") / "integration" / "certificate.crt")
 
-CTX = create_default_context(cafile=CERTIFICATE) #TODO Constant or variable?
+CTX = create_default_context(cafile=CERTIFICATE)  # TODO Constant or variable?

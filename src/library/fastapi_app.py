@@ -9,7 +9,6 @@ from typing import TYPE_CHECKING, Any, Final
 
 from fastapi import FastAPI, Request, Response, status
 from fastapi.middleware.gzip import GZipMiddleware
-from library.problem_details import create_problem_details
 from loguru import logger
 from prometheus_fastapi_instrumentator import Instrumentator
 
@@ -19,10 +18,11 @@ from library.config.dev.db_populate_router import router as db_populate_router
 from library.config.dev.keycloak_populate import keycloak_populate
 from library.config.dev.keycloak_populate_router import router as keycloak_populate_router
 from library.config.dev_mode import dev_db_populate, dev_keycloak_populate
+from library.problem_details import create_problem_details
 from library.repository.session_factory import engine
 from library.router import member_router, member_write_router, shutdown_router
-from library.security import router as auth_router
 from library.security import AuthorizationError, LoginError, set_response_headers
+from library.security import router as auth_router
 from library.service import (
     EmailExistsError,
     ForbiddenError,
@@ -109,10 +109,11 @@ async def add_security_headers(request: Request, call_next: Callable[[Any], Awai
     set_response_headers(response)
     return response
 
+
 # ----------------------------------------------------------------------------------------------------------------------------------
 # Exception Handling
 # ----------------------------------------------------------------------------------------------------------------------------------
-@app.add_exception_handler(NotFoundError)
+@app.exception_handler(NotFoundError)
 def not_found_exception_handler(_request: Request, _err: NotFoundError) -> Response:
     """Exception handler for NotFoundError.
 
@@ -123,7 +124,7 @@ def not_found_exception_handler(_request: Request, _err: NotFoundError) -> Respo
     return create_problem_details(status_code=status.HTTP_404_NOT_FOUND)
 
 
-@app.add_exception_handler(ForbiddenError)
+@app.exception_handler(ForbiddenError)
 def forbidden_exception_handler(_request: Request, _err: ForbiddenError) -> Response:
     """Exception handler for ForbiddenError.
 
@@ -134,7 +135,7 @@ def forbidden_exception_handler(_request: Request, _err: ForbiddenError) -> Resp
     return create_problem_details(status_code=status.HTTP_403_FORBIDDEN)
 
 
-@app.add_exception_handler(AuthorizationError)
+@app.exception_handler(AuthorizationError)
 def authorization_exception_handler(_request: Request, _err: AuthorizationError) -> Response:
     """Exception handler for AuthorizationError.
 
@@ -145,7 +146,7 @@ def authorization_exception_handler(_request: Request, _err: AuthorizationError)
     return create_problem_details(status_code=status.HTTP_401_UNAUTHORIZED)
 
 
-@app.add_exception_handler(LoginError)
+@app.exception_handler(LoginError)
 def login_exception_handler(_request: Request, _err: LoginError) -> Response:
     """Exception handler for LoginError.
 
@@ -156,7 +157,7 @@ def login_exception_handler(_request: Request, _err: LoginError) -> Response:
     return create_problem_details(status_code=status.HTTP_401_UNAUTHORIZED)
 
 
-@app.add_exception_handler(EmailExistsError)
+@app.exception_handler(EmailExistsError)
 def email_exists_exception_handler(_request: Request, err: EmailExistsError) -> Response:
     """Exception handler for EmailExistsError.
 
@@ -170,7 +171,7 @@ def email_exists_exception_handler(_request: Request, err: EmailExistsError) -> 
     )
 
 
-@app.add_exception_handler(UsernameExistsError)
+@app.exception_handler(UsernameExistsError)
 def username_exists_exception_handler(_request: Request, err: UsernameExistsError) -> Response:
     """Exception handler for UsernameExistsError.
 
