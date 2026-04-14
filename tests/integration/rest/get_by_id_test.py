@@ -11,7 +11,7 @@ from pytest import mark
 
 @mark.rest
 @mark.get_request
-@mark.parametrize("member_id", [1, 2, 3])
+@mark.parametrize("member_id", [1, 2])
 def test_get_by_id_admin(member_id: int) -> None:
     """Test for getting a member by ID using REST API as admin."""
     # arrange

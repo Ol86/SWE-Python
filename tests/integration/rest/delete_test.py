@@ -11,7 +11,7 @@ from pytest import mark
 
 @mark.rest
 @mark.delete_request
-@mark.parametrize("id", [3])
+@mark.parametrize("member_id", [3])
 def test_delete_by_id(member_id: int) -> None:
     """Test DELETE /rest/{id}."""
     # arrange
