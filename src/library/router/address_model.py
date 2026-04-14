@@ -9,6 +9,7 @@ from library.router.constants import PLACE_PATTERN, POSTAL_CODE_PATTERN
 
 __all__ = ["AddressModel"]
 
+
 class AddressModel(BaseModel):
     """Pydantic model for an address."""
 

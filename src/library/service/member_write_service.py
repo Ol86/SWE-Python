@@ -1,4 +1,5 @@
 """The bussiness logic for member write operations."""
+
 from typing import Final
 
 from loguru import logger
@@ -38,10 +39,7 @@ class MemberWriteService:
         :raises UsernameExistsError: If username already exists.
         :raises EmailExistsError: If email address already exists.
         """
-        logger.debug(
-            "member={}, member.address={}, member.books={}",
-            member, member.address, member.books
-        )
+        logger.debug("member={}, member.address={}, member.books={}", member, member.address, member.books)
 
         username: Final = member.username
         if username is None:
@@ -101,9 +99,7 @@ class MemberWriteService:
 
             email_address: Final = member.email_address
             if email_address != member_db.email_address and self.repo.is_email_already_existing(
-                member_id=member_id,
-                email_address=email_address,
-                session=session
+                member_id=member_id, email_address=email_address, session=session
             ):
                 raise EmailExistsError(email_address)
 

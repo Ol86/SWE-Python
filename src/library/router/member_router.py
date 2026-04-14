@@ -67,7 +67,7 @@ def get_member_by_id(
 
 
 @member_router.get(
-    "/",
+    "",
     dependencies=[Depends(RolesRequired(Role.ADMIN))],
 )
 def get_member(

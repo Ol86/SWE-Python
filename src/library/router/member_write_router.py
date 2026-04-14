@@ -1,4 +1,5 @@
 """The REST API router for member write operations."""
+
 from typing import Annotated, Final
 
 from fastapi import APIRouter, Depends, Request, Response, status
@@ -21,9 +22,7 @@ member_write_router: Final = APIRouter(tags=["Write"])
 
 @member_write_router.post(path="")
 def post(
-    member_model: MemberCreationModel,
-    request: Request,
-    service: Annotated[MemberWriteService, Depends(get_member_write_service)]
+    member_model: MemberCreationModel, request: Request, service: Annotated[MemberWriteService, Depends(get_member_write_service)]
 ) -> Response:
     """Create new member.
 
@@ -40,10 +39,7 @@ def post(
     member_dto: Final = service.create(member_model.to_member())
     logger.debug("member_dto={}", member_dto)
 
-    return Response(
-        status_code=status.HTTP_201_CREATED,
-        headers={"Location": f"{request.url}/{member_dto.id}"}
-    )
+    return Response(status_code=status.HTTP_201_CREATED, headers={"Location": f"{request.url}/{member_dto.id}"})
 
 
 @member_write_router.put(
@@ -70,14 +66,11 @@ def put(
     :raises VersionOutdatedError: If version number is deprecated
     """
     if_match: Final = request.headers.get(IF_MATCH)
-    logger.debug(
-        "member_id={}, if_match={}, member_update_model={}",
-        member_id, if_match, member_update_model
-    )
+    logger.debug("member_id={}, if_match={}, member_update_model={}", member_id, if_match, member_update_model)
 
     if (if_match_value := _get_if_match_as_version(if_match)) is Response:
         return if_match_value
-    version: Final = if_match_value # version is always int due to the line above
+    version: Final = if_match_value  # version is always int due to the line above
 
     member: Final = member_update_model.to_member()
     member_modified: Final = service.update(
@@ -86,10 +79,7 @@ def put(
         version=version,  # ty:ignore[invalid-argument-type]
     )
     logger.debug("member_modified={}", member_modified)
-    return Response(
-        status_code=status.HTTP_204_NO_CONTENT,
-        headers={"ETag": f'"{member_modified.version}'}
-        )
+    return Response(status_code=status.HTTP_204_NO_CONTENT, headers={"ETag": f'"{member_modified.version}'})
 
 
 def _get_if_match_as_version(if_match) -> Response | int:
@@ -101,11 +91,7 @@ def _get_if_match_as_version(if_match) -> Response | int:
     """
     if if_match is None:
         return create_problem_details(status.HTTP_428_PRECONDITION_REQUIRED)
-    if (
-        len(if_match) < IF_MATCH_MIN_LEN
-        or not if_match.startswith('"')
-        or not if_match.endswith('"')
-    ):
+    if len(if_match) < IF_MATCH_MIN_LEN or not if_match.startswith('"') or not if_match.endswith('"'):
         return create_problem_details(status.HTTP_412_PRECONDITION_FAILED)
 
     return _get_version_as_int(if_match)

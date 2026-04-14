@@ -24,25 +24,17 @@ class ProblemDetails:
     detail: dict | str | None
 
 
-def create_problem_details(
-    status_code: int, detail: dict | str | None = None
-) -> Response:
+def create_problem_details(status_code: int, detail: dict | str | None = None) -> Response:
     """ProblemDetails according to RFC 7807."""
     problem_details: ProblemDetails
 
     match status_code:
         case 400:
-            problem_details = ProblemDetails(
-                title="Bad Request", status_code=status_code, detail=detail
-            )
+            problem_details = ProblemDetails(title="Bad Request", status_code=status_code, detail=detail)
         case 401:
-            problem_details = ProblemDetails(
-                title="Unauthorized", status_code=status_code, detail=detail
-            )
+            problem_details = ProblemDetails(title="Unauthorized", status_code=status_code, detail=detail)
         case 403:
-            problem_details = ProblemDetails(
-                title="Forbidden", status_code=status_code, detail=detail
-            )
+            problem_details = ProblemDetails(title="Forbidden", status_code=status_code, detail=detail)
         case 412:
             problem_details = ProblemDetails(
                 title="Precondition Failed",
@@ -62,9 +54,7 @@ def create_problem_details(
                 detail=detail,
             )
         case _:
-            problem_details = ProblemDetails(
-                title="Client Error", status_code=status_code, detail=detail
-            )
+            problem_details = ProblemDetails(title="Client Error", status_code=status_code, detail=detail)
 
     return JSONResponse(
         status_code=status_code,

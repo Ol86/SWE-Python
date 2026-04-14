@@ -13,6 +13,7 @@ from library.router.member_update_model import MemberUpdateModel
 
 __all__ = ["MemberCreationModel"]
 
+
 class MemberCreationModel(MemberUpdateModel):
     """Model for member data for POST."""
 
