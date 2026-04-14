@@ -56,5 +56,5 @@ def test_create_member() -> None:
     assert response.status_code == HTTPStatus.OK
     response_body: Final = response.json()
     assert isinstance(response_body, dict)
-    assert isinstance(response_body.get("data").get("create_member").get("id"), int)
+    assert isinstance(response_body["data"]["create"]["id"], int)
     assert response_body.get("errors") is None
