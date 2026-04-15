@@ -18,9 +18,10 @@ from library.config.dev.db_populate_router import router as db_populate_router
 from library.config.dev.keycloak_populate import keycloak_populate
 from library.config.dev.keycloak_populate_router import router as keycloak_populate_router
 from library.config.dev_mode import dev_db_populate, dev_keycloak_populate
+from library.graphql.schema import graphql_router
 from library.problem_details import create_problem_details
 from library.repository.session_factory import engine
-from library.router import member_router, member_write_router, shutdown_router
+from library.router import health_router, member_router, member_write_router, shutdown_router
 from library.security import AuthorizationError, LoginError, set_response_headers
 from library.security import router as auth_router
 from library.service import (
@@ -85,6 +86,7 @@ async def log_response_time(request: Request, call_next: Callable[[Request], Awa
 app.include_router(member_router, prefix="/rest")
 app.include_router(member_write_router, prefix="/rest")
 app.include_router(auth_router, prefix="/auth")
+app.include_router(health_router, prefix="/health")
 app.include_router(shutdown_router, prefix="/admin")
 
 if dev_db_populate:
@@ -97,6 +99,12 @@ if dev_keycloak_populate:
 def hello_world() -> dict:
     """Return a simple hello world message."""
     return {"message": "Hello, World!"}
+
+
+# ----------------------------------------------------------------------------------------------------------------------------------
+# GraphQL
+# ----------------------------------------------------------------------------------------------------------------------------------
+app.include_router(graphql_router, prefix="/graphql")
 
 
 # ----------------------------------------------------------------------------------------------------------------------------------
