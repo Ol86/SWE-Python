@@ -1,4 +1,5 @@
 """Schema for GraphQL API."""
+
 from typing import Final
 
 import strawberry
@@ -16,16 +17,15 @@ from library.service import MemberWriteService
 
 _repo: Final = MemberRepository()
 _user_service: UserService = UserService()
-_write_service = MemberWriteService(
-    repo=_repo, user_service=_user_service
-)
+_write_service = MemberWriteService(repo=_repo, user_service=_user_service)
 _token_service: Final = TokenService()
 
 
 @strawberry.type
 class Query:
     """Empty GraphQL query for fetching data."""
-    #TODO necessary?
+
+    # TODO necessary?
 
 
 @strawberry.type
@@ -45,9 +45,7 @@ class Mutation:
 
         member_dict = member_input.__dict__
         member_dict["address"] = member_input.address.__dict__
-        member_dict["books"] = [
-            book.__dict__ for book in member_input.books
-        ]
+        member_dict["books"] = [book.__dict__ for book in member_input.books]
 
         member_model: Final = MemberCreationModel.model_validate(member_dict)
 
@@ -90,8 +88,4 @@ def get_context(request: Request) -> Context:
     return {"request": request}
 
 
-graphql_router: Final = GraphQLRouter[Context](
-    schema=schema,
-    context_getter=get_context,
-    graphql_ide=graphql_ide
-)
+graphql_router: Final = GraphQLRouter[Context](schema=schema, context_getter=get_context, graphql_ide=graphql_ide)
