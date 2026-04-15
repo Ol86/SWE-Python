@@ -6,16 +6,19 @@ import strawberry
 from fastapi import Request
 from loguru import logger
 from strawberry.fastapi import GraphQLRouter
+from strawberry.types.info import Info
 
 from library.config.graphql import graphql_ide
-from library.graphql import CreatePayload, MemberInput
-from library.graphql.types import LoginResult
+from library.graphql.types import CreatePayload, LoginResult, MemberInput
 from library.repository import MemberRepository
 from library.router.member_creation_model import MemberCreationModel
 from library.security import TokenService, UserService
-from library.service import MemberWriteService
+from library.service import MemberDTO, MemberWriteService
+from library.service.exceptions import NotFoundError
+from library.service.member_service import MemberService
 
 _repo: Final = MemberRepository()
+_service: Final = MemberService(repo=_repo)
 _user_service: UserService = UserService()
 _write_service = MemberWriteService(repo=_repo, user_service=_user_service)
 _token_service: Final = TokenService()
@@ -25,7 +28,32 @@ _token_service: Final = TokenService()
 class Query:
     """Empty GraphQL query for fetching data."""
 
-    # TODO necessary?
+    @strawberry.field
+    def member(self, member_id: strawberry.ID, info: Info) -> MemberDTO | None:
+        """Fetch a member by ID.
+
+        :param member_id: The ID of the member to fetch.
+        :param info: The GraphQL resolver info containing the request context.
+        :return: The member data transfer object (DTO) if found, otherwise None.
+        :rtype: MemberDTO | None
+        :raises NotFoundError: If the member with the given ID is not found.
+        """
+        logger.debug("member_id={}", member_id)
+
+        request: Final[Request] = info.context.get("request")
+        user: Final = _token_service.get_user_from_request(request=request)
+        if user is None:
+            return None
+
+        try:
+            member_dto: Final = _service.find_by_id(
+                member_id == int(member_id),
+                user=user,
+            )
+        except NotFoundError:
+            return None
+        logger.debug("{}", member_dto)
+        return member_dto
 
 
 @strawberry.type
