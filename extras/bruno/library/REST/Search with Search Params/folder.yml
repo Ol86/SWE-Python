@@ -1,7 +1,7 @@
 info:
-  name: Put
+  name: Search with Search Params
   type: folder
-  seq: 8
+  seq: 6
 
 request:
   auth:
@@ -24,5 +24,5 @@ request:
       autoRefreshToken: false
 
 docs:
-  content: Update existing members via REST Api.
+  content: Search for members via the REST API with flexible search parameters.
   type: text/markdown

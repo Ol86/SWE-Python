@@ -39,6 +39,7 @@ class MemberService:
                 if user_is_admin:
                     message = f"Member with id {member_id} not found."
                     logger.debug("NotFoundError", message)
+                    raise NotFoundError(member_id=member_id)
                 logger.debug("Not a admin user.")
                 raise ForbiddenError
 

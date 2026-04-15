@@ -1,9 +1,11 @@
 info:
-  name: Put
-  type: folder
-  seq: 8
+  name: Reload DB
+  type: http
+  seq: 1
 
-request:
+http:
+  method: POST
+  url: "{{devUrl}}/db_populate"
   auth:
     type: oauth2
     flow: resource_owner_password_credentials
@@ -23,6 +25,20 @@ request:
       autoFetchToken: true
       autoRefreshToken: false
 
-docs:
-  content: Update existing members via REST Api.
-  type: text/markdown
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
+    - expression: res.headers['content-type']
+      operator: eq
+      value: application\/json
+    - expression: res.body.db_populate
+      operator: eq
+      value: success
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

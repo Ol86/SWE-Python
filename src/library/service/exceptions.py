@@ -2,13 +2,7 @@
 
 from collections.abc import Mapping
 
-__all__ = [
-    "EmailExistsError",
-    "ForbiddenError",
-    "NotFoundError",
-    "UsernameExistsError",
-    "VersionOutdatedError"
-]
+__all__ = ["EmailExistsError", "ForbiddenError", "NotFoundError", "UsernameExistsError", "VersionOutdatedError"]
 
 
 class EmailExistsError(Exception):
