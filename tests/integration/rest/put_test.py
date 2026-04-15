@@ -21,6 +21,7 @@ def test_update_member() -> None:
     updated_member_data: Final = {
         "first_name": "Put",
         "last_name": "Test",
+        "gender": "M",
         "date_of_birth": "1990-01-01",
         "member_since": "2020-01-01",
         "is_student": False,

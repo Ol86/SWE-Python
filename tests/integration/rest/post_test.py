@@ -23,6 +23,7 @@ def test_create_member() -> None:
         "date_of_birth": "1990-01-01",
         "member_since": "2020-01-01",
         "email_address": "testmemberrest@example.com",
+        "is_student": False,
         "interests": ["F"],
         "address": {
             "postal_code": "12345",

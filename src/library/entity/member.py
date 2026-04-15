@@ -106,6 +106,9 @@ class Member(Base):
         """
         self.first_name = member.first_name
         self.last_name = member.last_name
+        self.gender = member.gender
+        self.member_since = member.member_since
+        self.is_student = member.is_student
         self.date_of_birth = member.date_of_birth
         self.email_address = member.email_address
 
