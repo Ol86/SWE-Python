@@ -14,7 +14,7 @@ token: str | None
 @mark.post_request
 def test_create_member() -> None:
     """Test for creating a new member using REST API."""
-    #arrange
+    # arrange
     member_data: Final = {
         "username": "test_member_rest",
         "first_name": "Post",
@@ -22,12 +22,11 @@ def test_create_member() -> None:
         "gender": "M",
         "date_of_birth": "1990-01-01",
         "member_since": "2020-01-01",
-        "is_student": False,
         "email_address": "testmemberrest@example.com",
         "interests": ["F"],
         "address": {
             "postal_code": "12345",
-            "place": "Test City",
+            "place": "City",
         },
         "books": [
             {
@@ -41,7 +40,7 @@ def test_create_member() -> None:
     }
     headers = {"Content-Type": "application/json"}
 
-    #act
+    # act
     response: Final = post(
         REST_URL,
         json=member_data,
@@ -49,7 +48,7 @@ def test_create_member() -> None:
         verify=CTX,
     )
 
-    #assert
+    # assert
     assert response.status_code == HTTPStatus.CREATED
     location_header: Final = response.headers.get("Location")
     assert location_header is not None
