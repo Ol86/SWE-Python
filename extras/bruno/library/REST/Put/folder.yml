@@ -1,5 +1,5 @@
 info:
-  name: Ändern
+  name: Put
   type: folder
   seq: 8
 
@@ -24,5 +24,5 @@ request:
       autoRefreshToken: false
 
 docs:
-  content: Mit der REST-Schnittstelle werden Patienten geändert.
+  content: Update existing members via REST Api.
   type: text/markdown
