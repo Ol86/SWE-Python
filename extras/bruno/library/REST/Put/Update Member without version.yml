@@ -20,7 +20,9 @@ http:
       {
           "first_name": "Updated",
           "last_name": "Member",
+          "gender": "M",
           "date_of_birth": "1990-01-01",
+          "member_since": "2020-01-01",
           "is_student": false,
           "email_address": "alpha@acme.de.put",
       }
