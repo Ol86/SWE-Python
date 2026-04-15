@@ -13,19 +13,19 @@ graphql:
   body:
     query: |-
       mutation {
-        create_member(
+        createMember(
           memberInput: {
             username: "invalid_graphql"
-            firstname: "wrong first name"
-            lastname: "wrong last name"
+            firstName: "wrong first name"
+            lastName: "wrong last name"
             gender: MALE
-            date_of_birth: "1990-01-01"
-            member_since: "2020-01-01"
-            is_student: false
-            email_address: "invalid@"
+            dateOfBirth: "1990-01-01"
+            memberSince: "2020-01-01"
+            isStudent: false
+            emailAddress: "invalid@"
             interests: [FANTASY]
             address: {
-              postal_code: "123"
+              postalCode: "123"
               place: "wrong city"
               }
             books: [
@@ -33,7 +33,7 @@ graphql:
                 name: "GraphQL for Beginners"
                 isbn: "9783161484100"
                 author: "John Doe"
-                still_borrowed: false
+                stillBorrowed: false
                 genre: NON_FICTION
               }
             ]
@@ -59,13 +59,13 @@ runtime:
       value: "1"
     - expression: res.body.errors[0].message
       operator: contains
-      value: first_name
+      value: firstName
     - expression: res.body.errors[0].message
       operator: contains
-      value: last_name
+      value: lastName
     - expression: res.body.errors[0].message
       operator: contains
-      value: email_address
+      value: emailAddress
     - expression: res.body.errors[0].message
       operator: contains
       value: address
