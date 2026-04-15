@@ -1,4 +1,4 @@
-"""Tests for Mutation with GraphQL."""
+"""Test for Mutation with GraphQL."""
 
 from http import HTTPStatus
 from typing import Final

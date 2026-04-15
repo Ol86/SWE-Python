@@ -50,4 +50,4 @@ TIMEOUT: Final = 30
 
 CERTIFICATE: Final = str(Path("tests") / "integration" / "certificate.crt")
 
-CTX = create_default_context(cafile=CERTIFICATE)  # TODO Constant or variable?
+CTX = create_default_context(cafile=CERTIFICATE)
