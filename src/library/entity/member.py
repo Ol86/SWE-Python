@@ -106,7 +106,6 @@ class Member(Base):
         """
         self.first_name = member.first_name
         self.last_name = member.last_name
-        self.username = member.username
         self.date_of_birth = member.date_of_birth
         self.email_address = member.email_address
 
