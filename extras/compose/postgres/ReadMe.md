@@ -91,7 +91,7 @@ der Owner und die Gruppe auf `postgres` gesetzt sowie die Zugriffsrechte auf Okt
 
 ```shell
     cp -r /tmp/init/* /init
-    mkdir /tablespace/patient
+    mkdir /tablespace/library
     chown -R postgres:postgres /init /tablespace
     chmod 400 /init/*/sql/* /init/tls/*
     ls -lR /init
@@ -141,8 +141,8 @@ Schema `patient` mit dem DB-User `patient` als _Owner_ angelegt:
 
 ```shell
     docker compose exec db bash
-        psql --dbname=postgres --username=postgres --file=/init/patient/sql/create-db.sql
-        psql --dbname=patient --username=patient --file=/init/patient/sql/create-schema.sql
+        psql --dbname=postgres --username=postgres --file=/init/library/sql/create-db.sql
+        psql --dbname=library --username=library --file=/init/library/sql/create-schema.sql
         exit
     docker compose down
 ```
