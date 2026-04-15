@@ -12,23 +12,23 @@ from pytest import mark
 @mark.mutation
 def test_create_member() -> None:
     """Test for creating a new member using GraphQL API."""
-    #arrange
+    # arrange
     query: Final = {
         "query": """
             mutation {
-                create_member(
+                createMember(
                     memberInput: {
                         username: "test_member_graphql"
-                        first_name: "GraphQL"
-                        last_name: "Test Member"
+                        firstName: "Graphql"
+                        lastName: "Testmember"
                         gender: MALE
-                        date_of_birth: "1990-01-01"
-                        member_since: "2020-01-01"
-                        is_student: false
-                        email_address: "test.graphql.member@example.com"
+                        dateOfBirth: "1990-01-01"
+                        memberSince: "2020-01-01"
+                        isStudent: false
+                        emailAddress: "test.graphql.member@example.com"
                         interests: [FANTASY]
                         address: {
-                            postal_code: "12345"
+                            postalCode: "12345"
                             place: "Test City"
                             }
                         books: [
@@ -36,7 +36,7 @@ def test_create_member() -> None:
                                 name: "GraphQL Testing"
                                 isbn: "978-3-16-148410-0"
                                 author: "John Doe"
-                                still_borrowed: true
+                                stillBorrowed: true
                                 genre: FANTASY
                             }
                         ]
@@ -45,16 +45,15 @@ def test_create_member() -> None:
                     id
                 }
             }
-
             """,
     }
-    #act
+    # act
     response: Final = post(GRAPHQL_URL, json=query, verify=CTX)
 
-    #assert
+    # assert
     assert response is not None
     assert response.status_code == HTTPStatus.OK
     response_body: Final = response.json()
     assert isinstance(response_body, dict)
-    assert isinstance(response_body.get("data").get("create_member").get("id"), int)
+    assert isinstance(response_body["data"]["createMember"]["id"], int)
     assert response_body.get("errors") is None
