@@ -56,8 +56,8 @@ services:
       KC_BOOTSTRAP_ADMIN_USERNAME: tmp
       KC_BOOTSTRAP_ADMIN_PASSWORD: p
       # https://www.keycloak.org/server/all-config#category-http
-      KC_HTTPS_CERTIFICATE_FILE: /opt/keycloak/tls/kc_cert.crt
-      KC_HTTPS_CERTIFICATE_KEY_FILE: /opt/keycloak/tls/kc_key.pem
+      KC_HTTPS_CERTIFICATE_FILE: /opt/keycloak/tls/certificate.crt
+      KC_HTTPS_CERTIFICATE_KEY_FILE: /opt/keycloak/tls/key.pem
       KC_HTTPS_PROTOCOLS: "TLSv1.3"
       KC_HTTP_ENABLED: true
       # https://www.keycloak.org/server/all-config#category-logging
