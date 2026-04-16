@@ -23,7 +23,7 @@ http:
           "date_of_birth": "1990-01-01",
           "member_since": "2020-01-01",
           "is_student": false,
-          "email_address": "invalid_email@",
+          "email_address": "invalid_email@"
       }
   auth: inherit
 

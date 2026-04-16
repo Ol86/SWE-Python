@@ -23,7 +23,7 @@ http:
           "date_of_birth": "1990-01-01",
           "member_since": "2020-01-01",
           "is_student": false,
-          "email_address": "alpha99999@acme.de.put",
+          "email_address": "alpha99999@acme.de.put"
       }
   auth: inherit
 
