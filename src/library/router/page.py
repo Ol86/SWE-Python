@@ -33,7 +33,7 @@ class Page:
     content: tuple[dict[str, Any], ...]
     """The content of the current page as a tuple of dictionaries."""
 
-    page: PageMeta
+    page_meta: PageMeta
     """Metadata for the paginated response."""
 
     @staticmethod
@@ -57,4 +57,4 @@ class Page:
             total_elements=total_elements,
             total_pages=total_pages,
         )
-        return Page(content=content, page=page_meta)
+        return Page(content=content, page_meta=page_meta)
