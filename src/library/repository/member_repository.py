@@ -17,6 +17,9 @@ __all__ = ["MemberRepository"]
 class MemberRepository:
     """Repository for managing member entities."""
 
+    LOG_MEMBER_PREFIX: Final = "member={}"
+    LOG_MEMBER_ID_PREFIX: Final = "member_id={}"
+
     # ------------------------------------------------------------------------------------------------------------------------------
     # Read operations
     # ------------------------------------------------------------------------------------------------------------------------------
@@ -28,7 +31,7 @@ class MemberRepository:
         :return: The member with the given ID, or None if not found.
         :rtype: Member | None
         """
-        logger.debug("member_id={}", member_id)
+        logger.debug(self.LOG_MEMBER_ID_PREFIX, member_id)
 
         if member_id is None:
             return None
@@ -36,7 +39,7 @@ class MemberRepository:
         statement: Final = select(Member).options(joinedload(Member.address)).where(Member.id == member_id)
         member: Final = session.scalar(statement)
 
-        logger.debug("member={}", member)
+        logger.debug(self.LOG_MEMBER_ID_PREFIX, member)
         return member
 
     def find(self, searchparams: Mapping[str, str], pageable: Pageable, session: Session) -> Slice[Member]:
@@ -56,10 +59,6 @@ class MemberRepository:
         for key, value in searchparams.items():
             if key == "username":
                 member = self._find_by_username(username=value, session=session)
-                logger.debug(f"{member}")
-                return Slice(content=(member,), total_elements=1) if member is not None else Slice(content=(), total_elements=0)
-            if key == "last_name":
-                member = self._find_by_last_name(last_name=value, session=session)
                 logger.debug(f"{member}")
                 return Slice(content=(member,), total_elements=1) if member is not None else Slice(content=(), total_elements=0)
             if key == "email_address":
@@ -112,7 +111,7 @@ class MemberRepository:
         logger.debug("username={}", username)
         statement: Final = select(Member).options(joinedload(Member.address)).where(Member.username == username)
         member: Final = session.scalar(statement)
-        logger.debug("member={}", member)
+        logger.debug(self.LOG_MEMBER_PREFIX, member)
         return member
 
     def _find_by_last_name(self, last_name: str, session: Session) -> Member | None:
@@ -126,7 +125,7 @@ class MemberRepository:
         logger.debug("last_name={}", last_name)
         statement: Final = select(Member).options(joinedload(Member.address)).where(Member.last_name == last_name)
         member: Final = session.scalar(statement)
-        logger.debug("member={}", member)
+        logger.debug(self.LOG_MEMBER_PREFIX, member)
         return member
 
     def _find_by_email_address(self, email_address: str, session: Session) -> Member | None:
@@ -140,7 +139,7 @@ class MemberRepository:
         logger.debug("email_address={}", email_address)
         statement: Final = select(Member).options(joinedload(Member.address)).where(Member.email_address == email_address)
         member: Final = session.scalar(statement)
-        logger.debug("member={}", member)
+        logger.debug(self.LOG_MEMBER_PREFIX, member)
         return member
 
     # ------------------------------------------------------------------------------------------------------------------------------
@@ -158,7 +157,7 @@ class MemberRepository:
 
         session.add(instance=member)
         session.flush(objects=[member])
-        logger.debug("member_id={}", member.id)
+        logger.debug(self.LOG_MEMBER_ID_PREFIX, member.id)
 
         return member
 
@@ -210,7 +209,7 @@ class MemberRepository:
         :param member_id: The ID of the member to delete.
         :param session: The database session to use for the query.
         """
-        logger.debug("member_id={}", member_id)
+        logger.debug(self.LOG_MEMBER_ID_PREFIX, member_id)
         if (member := self.find_by_id(member_id=member_id, session=session)) is not None:
             session.delete(member)
             logger.debug("deleted")
