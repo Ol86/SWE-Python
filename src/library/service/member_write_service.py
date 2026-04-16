@@ -57,7 +57,7 @@ class MemberWriteService:
             email=email_address,
             nachname=member.last_name,
             vorname=member.first_name,
-            password="p",  # noqa: S106
+            password="p",  # noqa: S106 # NOSONAR
             roles=[],
         )
         user_id = self.user_service.create_user(user)
