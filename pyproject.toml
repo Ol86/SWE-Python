@@ -1,5 +1,5 @@
 [project]
-name = "project"
+name = "library"
 version = "0.1.0"
 description = "This is a Python package for the SWE API."
 readme = "README.md"
@@ -15,11 +15,11 @@ requires-python = ">=3.14"
 dependencies = [
     "anyio>=4.12.1",
     "cffi>=2.0.0",
-    "cryptography>=46.0.5",
+    "cryptography>=46.0.7",
     "email-validator>=2.3.0",
     "fastapi[standard]>=0.135.1",
     "httpx[http2]>=0.28.1",
-    "jwcrypto>=1.5.6",
+    "jwcrypto>=1.5.7",
     "loguru>=0.7.3",
     "openpyxl>=3.1.5",
     "orjson>=3.11.7",
@@ -38,17 +38,17 @@ dependencies = [
     "requests>=2.32.5",
     "sqlalchemy>=2.0.48",
     "starlette>=0.52.1",
-    "strawberry-graphql>=0.312.0",
+    "strawberry-graphql>=0.312.3",
     "tabulate>=0.10.0",
     "urllib3>=2.6.3",
     "uvicorn>=0.42.0",
 ]
 
 [project.scripts]
-project = "project:main"
+library = "library:main"
 
 [build-system]
-requires = ["uv_build==0.11.0"]
+requires = ["uv_build==0.11.6"]
 build-backend = "uv_build"
 
 [dependency-groups]
@@ -58,7 +58,7 @@ dev = [
     "httptools>=0.7.1",
     "itsdangerous>=2.2.0",
     "locust>=2.43.3",
-    "pytest>=9.0.2",
+    "pytest>=9.0.3",
     "pytest-cov>=7.1.0",
     "pytest-env>=1.6.0",
     "pytest-html>=4.2.0",
@@ -84,12 +84,92 @@ lint = [
     "types-tabulate>=0.10.0.20260308",
 ]
 
+[tool.pytest.ini_options]
+minversion = "8.4.1"
+pythonpath = ["src"]
+testpaths = ["tests/integration"]
+addopts = "--html=report.html --cov --cov-report=html"
+markers = [
+    "rest: REST-Schnittstelle",
+    "get_request: GET-Requests",
+    "post_request: POST-Requests",
+    "put_request: PUT-Requests",
+    "delete_request: DELETE-Requests",
+    "login: Login mit der REST-Schnittstelle",
+    "health: Health des Servers ueberpruefen",
+    "graphql: GraphQL-Schnittstelle",
+    "query: Queries bei GraphQL",
+    "mutation: Mutations bei GraphQL",
+    "simple: Einfache Tests mit True und False",
+    "unit",
+    "unit_find_by_id",
+    "unit_find",
+    "unit_create",
+]
+
+[tool.pytest_env]
+# LOGURU_LEVEL = "INFO"
+
+[tool.ruff]
+line-length = 132
+
+[tool.ruff.lint]
+select = [
+    "FAST",
+    "B",
+    "ASYNC",
+    "S",
+    "BLE",
+    "FBT",
+    "A",
+    "COM",
+    "C4",
+    "ISC001",
+    "PIE",
+    "RSE",
+    "RET",
+    "SLF",
+    "SIM",
+    "TID",
+    "TC",
+    "ARG",
+    "PTH",
+    "I",
+    "N",
+    "PERF",
+    "E",
+    "W",
+    "D",
+    "F",
+    "PL",
+    "UP",
+    "FURB",
+    "RUF",
+]
+ignore = [
+    "D203",
+    "D213",
+    "RUF012",
+    "COM812",
+    "PLR6301",
+    "TC001",
+    "TC002",
+    "TC003",
+]
+
+[tool.ruff.lint.isort]
+case-sensitive = true
+
+[tool.ruff.lint.extend-per-file-ignores]
+"tests/**/*.py" = ["S101"]
+
 [tool.coverage.run]
-include = ["src/project/service/*"]
+include = ["src/library/service/*"]
 
 [tool.ty.environment]
 python = "./.venv"
-root = ["./src", "./tests/integration", "./tests/unit"]
+root = ["./src", "./tests/integration"]
+# FIXME: Add "./tests/unit" back, when the unit tests are written.
 
 [tool.uv]
 default-groups = "all"

@@ -5,64 +5,49 @@ hide circle
 skinparam linetype ortho
 
 ' Entities
-entity "User" as User {
-    *id: int
-    *username: varchar
-    *email: varchar
-    *created_at: datetime
+entity "Member" as Member {
+    * id: integer <<generated>>
+    --
+      username: text <<unique>>
+      last_name: text
+      first_name: text
+    * **gender**: Gender
+      date_of_birth: date
+    * member_since: date
+    * is_student: bool
+      email_address: text <<unique>>
+    * interests: list[Genre]
+    * interests_json: list[text]
+      **address**: Address
+      books: list[Book]
+    * version: integer
+    * generated: timestamp
+    * updated: timestamp
 }
 
-entity "Profile" as Profile {
-    *id: int
-    *user_id: int
-    *bio: text
-    *avatar_url: varchar
+entity "Address" as Address {
+    * id: integer <<generated>>
+    --
+      postal_code: text
+      place: text
+    * **member_id**: integer <<FK>>
 }
 
-entity "Category" as Category {
-    *id: int
-    *name: varchar
-    *description: text
+entity "Book" as Book {
+    * id: integer <<generated>>
+    --
+    name: text
+    isbn: text <<unique>>
+    * author: text
+    * still_borrowed: boolean
+    * genre: Genre
+    * **member_id**: integer <<FK>>
 }
 
-entity "Product" as Product {
-    *id: int
-    *sku: varchar
-    *name: varchar
-    *price: decimal
-    *category_id: int
-}
+' Relationships
+Member ||--|| Address : "has"
+Member ||--o{ Book : "rents"
 
-entity "Order" as Order {
-    *id: int
-    *order_date: datetime
-    *total: decimal
-    *user_id: int
-}
-
-entity "OrderItem" as OrderItem {
-    *id: int
-    *order_id: int
-    *product_id: int
-    *quantity: int
-    *unit_price: decimal
-}
-
-' Relationships (only 1:1 and 1:N)
-' 1:1 - each User has one Profile, each Profile belongs to exactly one User
-User ||--|| Profile : "has (1:1)"
-
-' 1:N - one User can place many Orders
-User ||--o{ Order : "places (1:N)"
-
-' 1:N - one Category has many Products
-Category ||--o{ Product : "contains (1:N)"
-
-' 1:N - one Order has many OrderItems
-Order ||--o{ OrderItem : "contains (1:N)"
-
-' 1:N - one Product can appear in many OrderItems
-Product ||--o{ OrderItem : "is listed in (1:N)"
 
 footer Ole Menke | Paul Bräuninger
 

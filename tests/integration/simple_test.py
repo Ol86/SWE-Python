@@ -1,6 +1,4 @@
-"""
-Integration tests for simple operations.
-"""
+"""Integration tests for simple operations."""
 
 from pytest import mark
 
